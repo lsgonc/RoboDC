@@ -1,0 +1,14 @@
+<ion-content class="ion-padding">
+  <span class="back-button" (click)="goToHome()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+    Voltar
+  </span>
+
+  <div class="container">
+    <h1>Para onde vamos?</h1>
+
+    <div class="locations-area">
+      <div *ngFor="let location of locations">{{ location }}</div>
+    </div>
+  </div>
+</ion-content>
