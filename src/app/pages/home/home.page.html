@@ -1,0 +1,40 @@
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="welcome-area">
+      <img src="/assets/logo_ufscar_branco.png" alt="Logo da UFSCar" />
+
+      <div class="welcome-message">
+        <h1>Bem-vindo ao Departamento de Computação!</h1>
+        <h2>Como posso te ajudar?</h2>
+      </div>
+
+      <img src="/assets/logo_dc.png" alt="Logo do Departamento de Computação" />
+    </div>
+
+    <div class="button-area">
+      <div class="ion-activatable ripple-parent" (click)="goToLocationsPage()">
+        Localização
+        <img
+          src="/assets/localizacao.svg"
+          alt="Icone do botão de localização"
+        />
+
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="ion-activatable ripple-parent" (click)="goToClassesPage()">
+        Aulas
+        <img src="/assets/aulas.svg" alt="Icone do botão de aulas" />
+
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="ion-activatable ripple-parent" (click)="goToEventsPage()">
+        Eventos
+        <img src="/assets/eventos.svg" alt="Icone do botão de eventos" />
+
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    </div>
+
+    <div style="height: 2.8rem"></div>
+  </div>
+</ion-content>
