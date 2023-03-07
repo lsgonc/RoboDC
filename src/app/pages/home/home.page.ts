@@ -13,8 +13,8 @@ export class HomePage {
     this.router.navigate(['localizacao']);
   }
 
-  goToClassesPage() {
-    this.router.navigate(['aulas']);
+  goToRUPage() {
+    this.router.navigate(['ru']);
   }
 
   goToEventsPage() {

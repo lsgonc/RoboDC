@@ -1,0 +1,15 @@
+<ion-content class="ion-padding">
+  <div class="container">
+    <img class="robot-img" src="/assets/robot.svg" alt="Imagem do Robô." />
+
+    <div class="robot-text">
+      <h1>Me acompanhe</h1>
+      <h2>Irei te levar para <strong>{{ location }}</strong>.</h2>
+    </div>
+
+    <div class="wrong-location">
+      <span>Local errado?</span>
+      <ion-button [routerLink]="['/localizacao']">Parar movimento</ion-button>
+    </div>
+  </div>
+</ion-content>

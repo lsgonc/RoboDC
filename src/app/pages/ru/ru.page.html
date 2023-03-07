@@ -1,0 +1,18 @@
+<ion-content class="ion-padding">
+  <span class="back-button" [routerLink]="'/'">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+    Voltar
+  </span>
+
+  <div class="container">
+    <div *ngFor="let menu of menus">{{ menu.campus }}</div>
+
+    <div class="select-bar">
+      <div class="day"></div>
+    </div>
+    <div class="menu-area">
+      <div class="lunch"></div>
+      <div class="dinner"></div>
+    </div>
+  </div>
+</ion-content>

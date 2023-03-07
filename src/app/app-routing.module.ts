@@ -8,22 +8,31 @@ const routes: Routes = [
       import('./pages/home/home.module').then((m) => m.HomePageModule),
   },
   {
-    path: 'aulas',
+    path: 'localizacao',
     loadChildren: () =>
-      import('./pages/aulas/aulas.module').then((m) => m.AulasPageModule),
+      import('./pages/localizacao/localizacao.module').then(
+        (m) => m.LocalizacaoPageModule
+      ),
+  },
+  {
+    path: 'eventos',
+    loadChildren: () =>
+      import('./pages/eventos/eventos.module').then((m) => m.EventosPageModule),
+  },
+  {
+    path: 'ru',
+    loadChildren: () =>
+      import('./pages/ru/ru.module').then((m) => m.RuPageModule),
+  },
+  {
+    path: 'ongoing/:location',
+    loadChildren: () =>
+      import('./pages/ongoing/ongoing.module').then((m) => m.OngoingPageModule),
   },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-  },
-  {
-    path: 'localizacao',
-    loadChildren: () => import('./pages/localizacao/localizacao.module').then( m => m.LocalizacaoPageModule)
-  },
-  {
-    path: 'eventos',
-    loadChildren: () => import('./pages/eventos/eventos.module').then( m => m.EventosPageModule)
   },
 ];
 

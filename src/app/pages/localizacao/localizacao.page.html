@@ -8,7 +8,43 @@
     <h1>Para onde vamos?</h1>
 
     <div class="locations-area">
-      <div *ngFor="let location of locations">{{ location }}</div>
+      <div
+        class="ion-activatable"
+        *ngFor="let location of locations"
+        (click)="presentModal(location)"
+      >
+        {{ location }}
+
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
     </div>
   </div>
+
+  <ion-modal>
+    <ng-template>
+      <ion-content>
+        <div class="modal-container">
+          <!-- Left side location image -->
+          <div class="modal-image-area">
+            <img src="" alt="" />
+          </div>
+
+          <!-- Right side content -->
+          <div class="modal-content-area">
+            <h1>{{ selectedLocation }}</h1>
+            <p>{{ selectedLocationDescription }}</p>
+
+            <ion-button expand="block" size="large" (click)="goToOngoingPage()">
+              Me leve até lá
+            </ion-button>
+          </div>
+
+          <!-- Modal close button -->
+          <div class="close-button" (click)="dismissModal()">
+            <ion-icon name="close-outline"></ion-icon>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

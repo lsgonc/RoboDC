@@ -3,5 +3,9 @@
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "proxies": {
+    "path": "/ruapi",
+    "proxyUrl": "https://petbcc.ufscar.br/ru_api/"
+  }
 }
