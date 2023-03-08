@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -14,7 +14,7 @@ import { ruApiResponseDto } from 'src/app/models/ru.types';
 export class RuPage implements OnInit {
   public menus: ruApiResponseDto = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HTTP) {}
 
   ngOnInit() {
     this.getRuApi();
@@ -25,9 +25,15 @@ export class RuPage implements OnInit {
   }
 
   async getRuApi() {
-    await fetch('https://petbcc.ufscar.br/ru_api/')
-      .then((r) => r.json())
-      .then((j) => console.log(j));
+    const response = await this.http.get(
+      `https://petbcc.ufscar.br/ru_api/`,
+      {},
+      {}
+    );
+
+    console.log(response);
+    console.log(response.data);
+    console.log(JSON.parse(response.data));
 
     /* return this.http.jsonp<ruApiResponseDto>(
       `https://petbcc.ufscar.br/ru_api/`,

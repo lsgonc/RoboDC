@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-localizacao',
@@ -32,7 +33,7 @@ export class LocalizacaoPage implements OnInit {
     'Recepcao',
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit() {}
 
@@ -53,6 +54,10 @@ export class LocalizacaoPage implements OnInit {
   }
 
   goToOngoingPage() {
+    this.http
+      .get(`http://192.168.0.200:5000/ros/goTo/${this.selectedLocation}`)
+      .subscribe((data) => console.log('Foi', data));
+
     this.router.navigate(['ongoing', this.selectedLocation]);
 
     this.modal?.dismiss();
