@@ -2,14 +2,35 @@
   <div class="container">
     <img class="robot-img" src="/assets/robot.svg" alt="Imagem do Robô." />
 
-    <div class="robot-text">
+    <div class="robot-text" *ngIf="reachedTheGoal === null && !isGoingHome">
       <h1>Me acompanhe</h1>
       <h2>Irei te levar para <strong>{{ location }}</strong>.</h2>
     </div>
 
-    <div class="wrong-location">
+    <div class="robot-text" *ngIf="reachedTheGoal">
+      <h1>Chegamos!</h1>
+      <h2>
+        Irei retornar para o ponto inicial em
+        <strong>{{ secondsRemainToReturn }}s</strong>.
+      </h2>
+    </div>
+
+    <div class="robot-text" *ngIf="isGoingHome">
+      <h1>Voltando!</h1>
+      <h2>Retornando para o <strong>Ponto Inicial</strong>.</h2>
+    </div>
+
+    <div class="wrong-location" *ngIf="reachedTheGoal === null">
       <span>Local errado?</span>
-      <ion-button [routerLink]="['/localizacao']">Parar movimento</ion-button>
+      <ion-button class="red-button" (click)="cancelMove()">
+        Parar movimento
+      </ion-button>
+    </div>
+
+    <div class="wrong-location" *ngIf="reachedTheGoal">
+      <ion-button class="green-button" (click)="cancelMove()">
+        Finalizar
+      </ion-button>
     </div>
   </div>
 </ion-content>

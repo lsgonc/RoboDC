@@ -13,7 +13,7 @@
         *ngFor="let location of locations"
         (click)="presentModal(location)"
       >
-        {{ location }}
+        {{ locationsInfo[location].title }}
 
         <ion-ripple-effect></ion-ripple-effect>
       </div>
@@ -26,13 +26,16 @@
         <div class="modal-container">
           <!-- Left side location image -->
           <div class="modal-image-area">
-            <img src="" alt="" />
+            <img
+              src="/assets/{{ locationsInfo[selectedLocation].image }}"
+              alt="Imagem do local."
+            />
           </div>
 
           <!-- Right side content -->
           <div class="modal-content-area">
-            <h1>{{ selectedLocation }}</h1>
-            <p>{{ selectedLocationDescription }}</p>
+            <h1>{{ locationsInfo[selectedLocation].title }}</h1>
+            <p>{{ locationsInfo[selectedLocation].description }}</p>
 
             <ion-button expand="block" size="large" (click)="goToOngoingPage()">
               Me leve até lá

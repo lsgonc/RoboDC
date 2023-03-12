@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
+import { Locations } from 'src/app/models/locations.types';
 
 @Component({
   selector: 'app-localizacao',
@@ -23,7 +25,7 @@ export class LocalizacaoPage implements OnInit {
     'PPG-CC4',
     'Maker',
     'LE-5',
-    'Auditório',
+    'Auditorio',
     'Banheiros',
     'Copa',
     'Lig',
@@ -32,6 +34,96 @@ export class LocalizacaoPage implements OnInit {
     'Graduacao',
     'Recepcao',
   ];
+
+  public locationsInfo: Locations = {
+    'LE-1': {
+      title: 'LE-1',
+      image: 'dc_generic.jpg',
+      description:
+        'Laboratório de ensino LE-1. Equipado com 13 computadores com a configuração: Intel core i7, 8 GbRam, HD 1Tb, monitor de 19. Com a atividade principal voltada para Hardware o LE-1 tem capacidade para 30 estudantes.',
+    },
+    'LE-2': {
+      title: 'LE-2',
+      image: 'dc_generic.jpg',
+      description:
+        'Laboratório de ensino LE-2. Equipado com 21 computadores com a configuração: Intel core I5, 8GB, HD 1TB, monitor 21,5. Com a atividade principal voltada para Programação e desenvolvimento o LE-2 tem capacidade para 40 estudantes.',
+    },
+    'LE-3': {
+      title: 'LE-3',
+      image: 'dc_generic.jpg',
+      description:
+        'Laboratório de ensino LE-3. Equipado com 20 computadores com a configuração: Intel core I5, 8GB, HD 1TB, monitor 19. Com a atividade principal voltada para Programação e desenvolvimento o LE-3 tem capacidade para 40 estudantes.',
+    },
+    'LE-4': {
+      title: 'LE-4',
+      image: 'dc_generic.jpg',
+      description:
+        'Laboratório de ensino LE-4. Equipado com 21 computadores com a configuração: Intel core i7, 8GB, HD 1TB, monitor 19. Com a atividade principal voltada para Programação e desenvolvimento o LE-4 tem capacidade para 40 estudantes.',
+    },
+    Suporte: {
+      title: 'Suporte',
+      image: 'dc_generic.jpg',
+      description: 'Sala de suporte.',
+    },
+    'PPG-CC4': {
+      title: 'PPG-CC4',
+      image: 'dc_generic.jpg',
+      description: 'Pós-graduação.',
+    },
+    Maker: {
+      title: 'Espaço Maker',
+      image: 'maker.jpg',
+      description: 'Espaço Maker para criação e elaboração de projetos.',
+    },
+    'LE-5': {
+      title: 'LE-5',
+      image: 'dc_generic.jpg',
+      description:
+        'Laboratório de ensino LE-5. Equipado com 9 computadores com a configuração: Intel core i7, 8 GbRam, HD 1Tb, monitor de 19. Com a atividade principal voltada para Hardware e Lógica digital o LE-5 tem capacidade para 30 estudantes.',
+    },
+    Auditorio: {
+      title: 'Auditório',
+      image: 'dc_generic.jpg',
+      description: 'O Audit.',
+    },
+    Banheiros: {
+      title: 'Banheiros',
+      image: 'dc_generic.jpg',
+      description: 'Banheiros do primeiro andar.',
+    },
+    Copa: {
+      title: 'Copa',
+      image: 'dc_generic.jpg',
+      description: 'Copa do primeiro andar.',
+    },
+    Lig: {
+      title: 'LIG',
+      image: 'dc_generic.jpg',
+      description:
+        'O laboratório de informática (LIG) é um espaço de uso geral.',
+    },
+    Reunioes: {
+      title: 'Reuniões',
+      image: 'dc_generic.jpg',
+      description: 'Sala de reuniões.',
+    },
+    Chefia: {
+      title: 'Chefia',
+      image: 'dc_generic.jpg',
+      description: 'Chefia do Departamento de Computação.',
+    },
+    Graduacao: {
+      title: 'Graduação',
+      image: 'dc_generic.jpg',
+      description: 'Sala da graduação.',
+    },
+    Recepcao: {
+      title: 'Recepção',
+      image: 'dc_generic.jpg',
+      description:
+        'Laboratório de ensino LE-1. Equipado com 13 computadores com a configuração: Intel core i7, 8 GbRam, HD 1Tb, monitor de 19.',
+    },
+  };
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -53,13 +145,19 @@ export class LocalizacaoPage implements OnInit {
     this.modal?.dismiss();
   }
 
-  goToOngoingPage() {
-    this.http
-      .get(`http://192.168.0.200:5000/ros/goTo/${this.selectedLocation}`)
-      .subscribe((data) => console.log('Foi', data));
+  async goToOngoingPage() {
+    try {
+      await lastValueFrom(
+        this.http.get(
+          `http://192.168.0.132:5000/ros/goTo/${this.selectedLocation}`
+        )
+      );
 
-    this.router.navigate(['ongoing', this.selectedLocation]);
-
-    this.modal?.dismiss();
+      this.router.navigate(['ongoing', this.selectedLocation]);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.modal?.dismiss();
+    }
   }
 }

@@ -45,10 +45,17 @@
     }
 
     ion-button {
-      --background: #D02F27;
       height: 8rem;
       width: 20rem;
       font-size: 1.5rem;
+    }
+
+    .red-button {
+      --background: #D02F27;
+    }
+
+    .green-button {
+      --background: #31B768;
     }
   }
 }
