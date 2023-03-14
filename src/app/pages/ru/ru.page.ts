@@ -6,6 +6,7 @@ import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 
 import { DayMenu, RuApiResponseDto } from 'src/app/models/ru.types';
 import { formatDate } from '@angular/common';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-ru',
@@ -18,7 +19,11 @@ export class RuPage implements OnInit {
 
   public selectedDayMenu?: DayMenu;
 
-  constructor(private http: HTTP, private httpClient: HttpClient) {}
+  constructor(
+    private http: HTTP,
+    private httpClient: HttpClient,
+    public platform: Platform
+  ) {}
 
   ngOnInit() {
     this.getRuApi();
@@ -26,13 +31,25 @@ export class RuPage implements OnInit {
 
   async getRuApi() {
     try {
-      const response = await lastValueFrom(
-        this.httpClient.get<RuApiResponseDto[]>(
-          `https://petbcc.ufscar.br/ru_api/`
-        )
-      );
+      if (this.platform.is('hybrid')) {
+        const response = await this.http.get(
+          `https://petbcc.ufscar.br/ru_api/`,
+          {},
+          {}
+        );
 
-      this.menus = response.filter((r) => r.campus === 'São Carlos');
+        this.menus = JSON.parse(response.data).filter(
+          (r: RuApiResponseDto) => r.campus === 'São Carlos'
+        );
+      } else {
+        const response = await lastValueFrom(
+          this.httpClient.get<RuApiResponseDto[]>(
+            `https://petbcc.ufscar.br/ru_api/`
+          )
+        );
+
+        this.menus = response.filter((r) => r.campus === 'São Carlos');
+      }
 
       this.prepareWeekMenus();
     } catch (error) {
