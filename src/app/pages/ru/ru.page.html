@@ -5,14 +5,86 @@
   </span>
 
   <div class="container">
-    <div *ngFor="let menu of menus">{{ menu.campus }}</div>
-
     <div class="select-bar">
-      <div class="day"></div>
+      <div
+        class="day"
+        *ngFor="let menu of weekMenus"
+        [ngClass]="menu.isActive ? 'is-active' : ''"
+        (click)="selectWeekDay(menu)"
+      >
+        <p>{{ getWeekDayName(menu.date) }}</p>
+        <p>{{ menu.date | date: 'dd/MM' }}</p>
+      </div>
     </div>
-    <div class="menu-area">
-      <div class="lunch"></div>
-      <div class="dinner"></div>
+
+    <div class="menu-area" *ngIf="selectedDayMenu">
+      <div class="lunch" *ngIf="selectedDayMenu.lunch">
+        <h3>Almoço</h3>
+        <div class="content">
+          <p>
+            <b>Prato Principal (Sem restrição):</b>
+            {{ selectedDayMenu.lunch.main_dish_unrestricted }}.
+          </p>
+          <p>
+            <b>Prato Principal (Vegetariano):</b>
+            {{ selectedDayMenu.lunch.main_dish_vegetarian }}.
+          </p>
+          <p>
+            <b>Prato Principal (Extra):</b>
+            {{ selectedDayMenu.lunch.main_dish_extra }}.
+          </p>
+          <p>
+            <b>Guarnição:</b>
+            {{ selectedDayMenu.lunch.garnish }}.
+          </p>
+          <p>
+            <b>Acompanhamentos:</b>
+            {{ selectedDayMenu.lunch.accompaniment }}.
+          </p>
+          <p>
+            <b>Saladas:</b>
+            {{ selectedDayMenu.lunch.salads }}.
+          </p>
+          <p>
+            <b>Sobremesa:</b>
+            {{ selectedDayMenu.lunch.dessert }}.
+          </p>
+        </div>
+      </div>
+
+      <div class="dinner" *ngIf="selectedDayMenu.dinner">
+        <h3>Jantar</h3>
+        <div class="content">
+          <p>
+            <b>Prato Principal - Sem restrição:</b>
+            {{ selectedDayMenu.dinner.main_dish_unrestricted }}.
+          </p>
+          <p>
+            <b>Prato Principal - Vegetariano:</b>
+            {{ selectedDayMenu.dinner.main_dish_vegetarian }}.
+          </p>
+          <p>
+            <b>Prato Principal - Extra:</b>
+            {{ selectedDayMenu.dinner.main_dish_extra }}.
+          </p>
+          <p>
+            <b>Guarnição:</b>
+            {{ selectedDayMenu.dinner.garnish }}.
+          </p>
+          <p>
+            <b>Acompanhamentos:</b>
+            {{ selectedDayMenu.dinner.accompaniment }}.
+          </p>
+          <p>
+            <b>Saladas:</b>
+            {{ selectedDayMenu.dinner.salads }}.
+          </p>
+          <p>
+            <b>Sobremesa:</b>
+            {{ selectedDayMenu.dinner.dessert }}.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </ion-content>

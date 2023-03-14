@@ -38,25 +38,25 @@ export class LocalizacaoPage implements OnInit {
   public locationsInfo: Locations = {
     'LE-1': {
       title: 'LE-1',
-      image: 'dc_generic.jpg',
+      image: 'le1.jpeg',
       description:
         'Laboratório de ensino LE-1. Equipado com 13 computadores com a configuração: Intel core i7, 8 GbRam, HD 1Tb, monitor de 19. Com a atividade principal voltada para Hardware o LE-1 tem capacidade para 30 estudantes.',
     },
     'LE-2': {
       title: 'LE-2',
-      image: 'dc_generic.jpg',
+      image: 'le2.jpeg',
       description:
         'Laboratório de ensino LE-2. Equipado com 21 computadores com a configuração: Intel core I5, 8GB, HD 1TB, monitor 21,5. Com a atividade principal voltada para Programação e desenvolvimento o LE-2 tem capacidade para 40 estudantes.',
     },
     'LE-3': {
       title: 'LE-3',
-      image: 'dc_generic.jpg',
+      image: 'le3.jpeg',
       description:
         'Laboratório de ensino LE-3. Equipado com 20 computadores com a configuração: Intel core I5, 8GB, HD 1TB, monitor 19. Com a atividade principal voltada para Programação e desenvolvimento o LE-3 tem capacidade para 40 estudantes.',
     },
     'LE-4': {
       title: 'LE-4',
-      image: 'dc_generic.jpg',
+      image: 'le4.jpeg',
       description:
         'Laboratório de ensino LE-4. Equipado com 21 computadores com a configuração: Intel core i7, 8GB, HD 1TB, monitor 19. Com a atividade principal voltada para Programação e desenvolvimento o LE-4 tem capacidade para 40 estudantes.',
     },
@@ -72,12 +72,12 @@ export class LocalizacaoPage implements OnInit {
     },
     Maker: {
       title: 'Espaço Maker',
-      image: 'maker.jpg',
+      image: 'maker.jpeg',
       description: 'Espaço Maker para criação e elaboração de projetos.',
     },
     'LE-5': {
       title: 'LE-5',
-      image: 'dc_generic.jpg',
+      image: 'le5.jpeg',
       description:
         'Laboratório de ensino LE-5. Equipado com 9 computadores com a configuração: Intel core i7, 8 GbRam, HD 1Tb, monitor de 19. Com a atividade principal voltada para Hardware e Lógica digital o LE-5 tem capacidade para 30 estudantes.',
     },
@@ -88,12 +88,12 @@ export class LocalizacaoPage implements OnInit {
     },
     Banheiros: {
       title: 'Banheiros',
-      image: 'dc_generic.jpg',
+      image: 'banheiros.jpeg',
       description: 'Banheiros do primeiro andar.',
     },
     Copa: {
       title: 'Copa',
-      image: 'dc_generic.jpg',
+      image: 'copa.jpeg',
       description: 'Copa do primeiro andar.',
     },
     Lig: {
@@ -119,9 +119,8 @@ export class LocalizacaoPage implements OnInit {
     },
     Recepcao: {
       title: 'Recepção',
-      image: 'dc_generic.jpg',
-      description:
-        'Laboratório de ensino LE-1. Equipado com 13 computadores com a configuração: Intel core i7, 8 GbRam, HD 1Tb, monitor de 19.',
+      image: 'recepcao.jpeg',
+      description: 'Recepção.',
     },
   };
 

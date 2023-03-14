@@ -1,8 +1,8 @@
-export type ruApiResponseDto = {
+export type RuApiResponseDto = {
   id: number;
   meal_type: string;
   campus: string;
-  created_at: Date;
+  created_at: string;
   date: string;
   main_dish_unrestricted: string;
   main_dish_vegetarian: string;
@@ -12,4 +12,11 @@ export type ruApiResponseDto = {
   salads: string;
   dessert: string;
   juice: string;
-}[];
+};
+
+export type DayMenu = {
+  date: string;
+  lunch?: RuApiResponseDto;
+  dinner?: RuApiResponseDto;
+  isActive: boolean;
+};

@@ -5,19 +5,26 @@
   </span>
 
   <div class="container">
-    <h2>Hoje - 07 de Fevereiro</h2>
+    <div class="event-group" *ngFor="let eventGroupKey of eventsGroupsKeys">
+      <h2>{{ eventGroupKey | date: 'longDate' }}</h2>
 
-    <div class="events-list">
-      <div class="event" *ngFor="let event of events">
-        <div class="event-img"></div>
+      <div class="events-list">
+        <div class="event" *ngFor="let event of events[eventGroupKey]">
+          <div class="event-img">
+            <img
+              src="https://picsum.photos/seed/{{ event.id }}/300/300"
+              alt=""
+            />
+          </div>
 
-        <div class="event-details">
-          <h3>{{ event.title }}</h3>
-          <p>{{ event.description }}</p>
-          <span>
-            {{ event.datetime }} <br />
-            {{ event.local }}
-          </span>
+          <div class="event-details">
+            <h3>{{ event.Titulo }}</h3>
+            <p>{{ event.Descricao }}</p>
+            <span>
+              {{ event.Data | date: 'short' }}<br />
+              {{ event.Local }}
+            </span>
+          </div>
         </div>
       </div>
     </div>

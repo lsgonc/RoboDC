@@ -41,18 +41,23 @@ ion-modal {
   --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
 
   .modal-container {
+    overflow: hidden;
     display: flex;
     flex-direction: row;
+
     height: 100%;
 
     .modal-image-area {
-      min-width: 36%;
-      width: 36%;
+      min-width: 40%;
+      max-width: 40%;
       height: 100%;
       background-color: #303030;
+      padding: 0;
+      margin: 0;
 
       img {
         height: 100%;
+        width: 100%;
         object-fit: cover;
       }
     }
