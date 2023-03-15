@@ -11,7 +11,8 @@ import { Locations } from 'src/app/models/locations.types';
   styleUrls: ['./localizacao.page.scss'],
 })
 export class LocalizacaoPage implements OnInit {
-  @ViewChild(IonModal) modal: IonModal | undefined;
+  @ViewChild('locationModal') modal: IonModal | undefined;
+  @ViewChild('mapModal') mapModal: IonModal | undefined;
 
   public selectedLocation: string = '';
   public selectedLocationDescription: string = '';
@@ -144,11 +145,15 @@ export class LocalizacaoPage implements OnInit {
     this.modal?.dismiss();
   }
 
+  dismissMapModal() {
+    this.mapModal?.dismiss();
+  }
+
   async goToOngoingPage() {
     try {
       await lastValueFrom(
         this.http.get(
-          `http://192.168.0.132:5000/ros/goTo/${this.selectedLocation}`
+          `http://192.168.1.100:5000/ros/goTo/${this.selectedLocation}`
         )
       );
 

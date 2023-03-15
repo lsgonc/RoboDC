@@ -36,7 +36,7 @@ export class OngoingPage implements OnInit {
 
   async verifyRobotStatus(isToHome = false) {
     const result = await lastValueFrom(
-      this.http.get<StateResponseDto>(`http://192.168.0.132:5000/ros/status`)
+      this.http.get<StateResponseDto>(`http://192.168.1.100:5000/ros/status`)
     );
 
     if (result.goal_state === 'SUCCEEDED') {
@@ -86,7 +86,7 @@ export class OngoingPage implements OnInit {
       this.isGoingHome = true;
 
       await lastValueFrom(
-        this.http.get(`http://192.168.0.132:5000/ros/goTo/Home`)
+        this.http.get(`http://192.168.1.100:5000/ros/goTo/Home`)
       );
 
       this.statusInterval = setInterval(() => {
@@ -99,7 +99,7 @@ export class OngoingPage implements OnInit {
 
   async cancelMove() {
     await lastValueFrom(
-      this.http.delete(`http://192.168.0.132:5000/ros/cancel`)
+      this.http.delete(`http://192.168.1.100:5000/ros/cancel`)
     );
 
     this.router.navigate(['/localizacao']);
