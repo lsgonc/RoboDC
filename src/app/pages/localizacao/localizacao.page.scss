@@ -46,6 +46,7 @@ ion-modal {
     display: flex;
     flex-direction: row;
 
+    width: 100%;
     height: 100%;
 
     .modal-image-area {
@@ -66,6 +67,7 @@ ion-modal {
     .modal-content-area {
       display: flex;
       flex-direction: column;
+      width: 100%;
       padding: 2.5rem 2rem;
 
       h1 {
@@ -236,7 +238,7 @@ ion-modal {
 }
 
 ion-fab-button {
-  --background: #E35B5D;
+  --background: #4D94DD;
   --border-radius: 8px;
   --color: #FFF;
   width: 6.5rem;

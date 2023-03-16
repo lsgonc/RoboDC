@@ -63,7 +63,7 @@ export class LocalizacaoPage implements OnInit {
     },
     Suporte: {
       title: 'Suporte',
-      image: 'dc_generic.jpg',
+      image: 'suporte.jpg',
       description: 'Sala de suporte.',
     },
     'PPG-CC4': {
@@ -84,8 +84,8 @@ export class LocalizacaoPage implements OnInit {
     },
     Auditorio: {
       title: 'Auditório',
-      image: 'dc_generic.jpg',
-      description: 'O Audit.',
+      image: 'auditorio.jpg',
+      description: 'Auditório Prof. Mauro Biajiz.',
     },
     Banheiros: {
       title: 'Banheiros',
@@ -105,12 +105,12 @@ export class LocalizacaoPage implements OnInit {
     },
     Reunioes: {
       title: 'Reuniões',
-      image: 'dc_generic.jpg',
+      image: 'reunioes.jpg',
       description: 'Sala de reuniões.',
     },
     Chefia: {
       title: 'Chefia',
-      image: 'dc_generic.jpg',
+      image: 'chefia.jpg',
       description: 'Chefia do Departamento de Computação.',
     },
     Graduacao: {
@@ -153,7 +153,7 @@ export class LocalizacaoPage implements OnInit {
     try {
       await lastValueFrom(
         this.http.get(
-          `http://192.168.1.100:5000/ros/goTo/${this.selectedLocation}`
+          `http://192.168.0.132:5000/ros/goTo/${this.selectedLocation}`
         )
       );
 
