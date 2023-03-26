@@ -86,7 +86,7 @@
       font-size: 1.6rem;
 
       ion-icon {
-        transition: .2s;
+        transition: .5s;
       }
     }
 
@@ -94,6 +94,14 @@
       display: flex;
       flex-direction: row;
       gap: .5rem;
+
+      div {
+        position: relative;
+        overflow: hidden;
+        border-radius: 100%;
+        height: 2rem;
+        width: 2rem;
+      }
 
       img {
         height: 2rem;

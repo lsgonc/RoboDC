@@ -8,10 +8,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   constructor(private translate: TranslateService) {
+    this.configHandler();
+    this.themeHandler();
+    this.languageHandler();
+  }
+
+  themeHandler() {
     const theme = localStorage.getItem('color-theme') ?? 'dark';
     document.body.setAttribute('color-theme', theme);
-
-    this.languageHandler();
   }
 
   languageHandler() {
@@ -26,6 +30,13 @@ export class AppComponent {
     localStorage.setItem(
       'language',
       localStorage.getItem('language') || language
+    );
+  }
+
+  configHandler() {
+    localStorage.setItem(
+      'robot_api',
+      localStorage.getItem('robot_api') || 'http://192.168.1.100:5000'
     );
   }
 }

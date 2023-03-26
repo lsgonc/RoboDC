@@ -14,6 +14,8 @@ export class OngoingPage implements OnInit {
   public location: string = 'Auditório';
   public statusInterval?: NodeJS.Timeout;
 
+  public robot_api: string = '';
+
   public reachedTheGoal: boolean | null = null;
   public isGoingHome: boolean = false;
 
@@ -26,7 +28,12 @@ export class OngoingPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient
-  ) {}
+  ) {
+    this.robot_api =
+      localStorage.getItem('robot_api') || 'http://192.168.1.100:5000';
+
+    console.log(this.robot_api);
+  }
 
   ngOnInit() {
     this.location = this.route.snapshot.params['location'];
@@ -40,7 +47,7 @@ export class OngoingPage implements OnInit {
 
   async verifyRobotStatus(isToHome = false) {
     const result = await lastValueFrom(
-      this.http.get<StateResponseDto>(`http://192.168.0.132:5000/ros/status`)
+      this.http.get<StateResponseDto>(`${this.robot_api}/ros/status`)
     );
 
     if (result.goal_state === 'SUCCEEDED') {
@@ -89,9 +96,7 @@ export class OngoingPage implements OnInit {
     try {
       this.isGoingHome = true;
 
-      await lastValueFrom(
-        this.http.get(`http://192.168.0.132:5000/ros/goTo/Home`)
-      );
+      await lastValueFrom(this.http.get(`${this.robot_api}/ros/goTo/Home`));
 
       this.statusInterval = setInterval(() => {
         this.verifyRobotStatus(true);
@@ -102,9 +107,7 @@ export class OngoingPage implements OnInit {
   }
 
   async cancelMove() {
-    await lastValueFrom(
-      this.http.delete(`http://192.168.0.132:5000/ros/cancel`)
-    );
+    await lastValueFrom(this.http.delete(`${this.robot_api}/ros/cancel`));
 
     this.router.navigate(['/localizacao']);
   }

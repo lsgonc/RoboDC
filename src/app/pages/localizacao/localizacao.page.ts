@@ -14,6 +14,8 @@ export class LocalizacaoPage implements OnInit {
   @ViewChild('locationModal') modal: IonModal | undefined;
   @ViewChild('mapModal') mapModal: IonModal | undefined;
 
+  public robot_api: string = '';
+
   public selectedLocation: string = '';
   public selectedLocationDescription: string = '';
 
@@ -125,7 +127,12 @@ export class LocalizacaoPage implements OnInit {
     },
   };
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient) {
+    this.robot_api =
+      localStorage.getItem('robot_api') || 'http://192.168.1.100:5000';
+
+    console.log(this.robot_api);
+  }
 
   ngOnInit() {}
 
@@ -152,9 +159,7 @@ export class LocalizacaoPage implements OnInit {
   async goToOngoingPage() {
     try {
       await lastValueFrom(
-        this.http.get(
-          `http://192.168.0.132:5000/ros/goTo/${this.selectedLocation}`
-        )
+        this.http.get(`${this.robot_api}/ros/goTo/${this.selectedLocation}`)
       );
 
       this.router.navigate(['ongoing', this.selectedLocation]);

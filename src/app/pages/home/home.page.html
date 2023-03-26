@@ -5,12 +5,14 @@
         *ngIf="theme === 'dark'"
         src="/assets/logo_ufscar_branco.png"
         alt="Logo da UFSCar"
+        (click)="configCountdown()"
       />
 
       <img
         *ngIf="theme === 'light'"
         src="/assets/logo_ufscar.png"
         alt="Logo da UFSCar"
+        (click)="configCountdown()"
       />
 
       <div class="welcome-message">
@@ -18,7 +20,11 @@
         <h2>{{ 'home.guideMessage' | translate }}</h2>
       </div>
 
-      <img src="/assets/logo_dc.png" alt="Logo do Departamento de Computação" />
+      <img
+        src="/assets/logo_dc.png"
+        alt="Logo do Departamento de Computação"
+        (click)="chessCountdown()"
+      />
     </div>
 
     <div class="button-area">
@@ -55,6 +61,7 @@
           *ngIf="theme === 'dark'"
           (click)="changeTheme('light')"
         ></ion-icon>
+
         <ion-icon
           name="sunny"
           *ngIf="theme === 'light'"
@@ -63,16 +70,25 @@
       </div>
 
       <div class="rigth-elements">
-        <img
-          src="/assets/flags/us.png"
-          alt="United States flag"
-          (click)="changeLanguage('en-US')"
-        />
-        <img
-          src="/assets/flags/br.png"
-          alt="Brazilian flag"
-          (click)="changeLanguage('pt-BR')"
-        />
+        <div class="ion-activatable">
+          <img
+            src="/assets/flags/us.png"
+            alt="United States flag"
+            (click)="changeLanguage('en-US')"
+          />
+
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+
+        <div class="ion-activatable">
+          <img
+            src="/assets/flags/br.png"
+            alt="Brazilian flag"
+            (click)="changeLanguage('pt-BR')"
+          />
+
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,16 @@
+<ion-content class="ion-padding">
+  <span class="back-button" [routerLink]="'/'">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+    {{ 'common.back' | translate }}
+  </span>
+
+  <div class="container">
+    <h1>Problema Diário</h1>
+
+    <iframe
+      src="https://www.chess.com/daily_puzzle"
+      allowtransparency="true"
+      frameborder="0"
+    ></iframe>
+  </div>
+</ion-content>

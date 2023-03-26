@@ -34,6 +34,14 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'chess',
+    loadChildren: () => import('./pages/chess/chess.module').then( m => m.ChessPageModule)
+  },
+  {
+    path: 'config',
+    loadChildren: () => import('./pages/config/config.module').then( m => m.ConfigPageModule)
+  },
 ];
 
 @NgModule({
