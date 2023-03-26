@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { LocalizacaoPageRoutingModule } from './localizacao-routing.module';
 
 import { LocalizacaoPage } from './localizacao.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LocalizacaoPageRoutingModule
+    LocalizacaoPageRoutingModule,
+    TranslateModule,
   ],
-  declarations: [LocalizacaoPage]
+  declarations: [LocalizacaoPage],
 })
 export class LocalizacaoPageModule {}

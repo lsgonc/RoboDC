@@ -1,11 +1,21 @@
 <ion-content [fullscreen]="true">
   <div class="container">
     <div class="welcome-area">
-      <img src="/assets/logo_ufscar_branco.png" alt="Logo da UFSCar" />
+      <img
+        *ngIf="theme === 'dark'"
+        src="/assets/logo_ufscar_branco.png"
+        alt="Logo da UFSCar"
+      />
+
+      <img
+        *ngIf="theme === 'light'"
+        src="/assets/logo_ufscar.png"
+        alt="Logo da UFSCar"
+      />
 
       <div class="welcome-message">
-        <h1>Bem-vindo ao Departamento de Computação!</h1>
-        <h2>Como posso te ajudar?</h2>
+        <h1>{{ 'home.welcome' | translate }}</h1>
+        <h2>{{ 'home.guideMessage' | translate }}</h2>
       </div>
 
       <img src="/assets/logo_dc.png" alt="Logo do Departamento de Computação" />
@@ -13,7 +23,7 @@
 
     <div class="button-area">
       <div class="ion-activatable ripple-parent" (click)="goToLocationsPage()">
-        Localização
+        {{ 'home.location' | translate }}
         <img
           src="/assets/localizacao.svg"
           alt="Icone do botão de localização"
@@ -22,19 +32,48 @@
         <ion-ripple-effect></ion-ripple-effect>
       </div>
       <div class="ion-activatable ripple-parent" (click)="goToRUPage()">
-        R.U.
+        {{ 'home.ru' | translate }}
         <img src="/assets/ru.svg" alt="Icone do botão do RU" />
 
         <ion-ripple-effect></ion-ripple-effect>
       </div>
       <div class="ion-activatable ripple-parent" (click)="goToEventsPage()">
-        Eventos
+        {{ 'home.events' | translate }}
         <img src="/assets/eventos.svg" alt="Icone do botão de eventos" />
 
         <ion-ripple-effect></ion-ripple-effect>
       </div>
     </div>
 
-    <div style="height: 2.8rem"></div>
+    <!-- SPACER -->
+    <div style="height: 4.5rem"></div>
+
+    <div class="bottom-elements">
+      <div class="left-elements">
+        <ion-icon
+          name="moon"
+          *ngIf="theme === 'dark'"
+          (click)="changeTheme('light')"
+        ></ion-icon>
+        <ion-icon
+          name="sunny"
+          *ngIf="theme === 'light'"
+          (click)="changeTheme('dark')"
+        ></ion-icon>
+      </div>
+
+      <div class="rigth-elements">
+        <img
+          src="/assets/flags/us.png"
+          alt="United States flag"
+          (click)="changeLanguage('en-US')"
+        />
+        <img
+          src="/assets/flags/br.png"
+          alt="Brazilian flag"
+          (click)="changeLanguage('pt-BR')"
+        />
+      </div>
+    </div>
   </div>
 </ion-content>

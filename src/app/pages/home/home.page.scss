@@ -5,7 +5,7 @@
   align-items: center;
   height: 100vh;
 
-  background-color: #1C1B1F;
+  background-color: var(--backgroud-color);
 
   .welcome-area {
     display: flex;
@@ -56,6 +56,7 @@
       padding-top: 1.2rem;
       background-color: #343434;
 
+      color: #FFF;
       font-size: 2rem;
       font-weight: 700;
 
@@ -65,6 +66,38 @@
         width: 100%;
         position: absolute;
         bottom: -1.8rem;
+      }
+    }
+  }
+
+  .bottom-elements {
+    position: absolute;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    padding: 1rem 2rem;
+
+    .left-elements {
+      font-size: 1.6rem;
+
+      ion-icon {
+        transition: .2s;
+      }
+    }
+
+    .rigth-elements {
+      display: flex;
+      flex-direction: row;
+      gap: .5rem;
+
+      img {
+        height: 2rem;
+        width: 2rem;
       }
     }
   }

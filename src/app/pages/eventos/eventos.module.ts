@@ -8,13 +8,16 @@ import { EventosPageRoutingModule } from './eventos-routing.module';
 
 import { EventosPage } from './eventos.page';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EventosPageRoutingModule
+    EventosPageRoutingModule,
+    TranslateModule,
   ],
-  declarations: [EventosPage]
+  declarations: [EventosPage],
 })
 export class EventosPageModule {}

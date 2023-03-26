@@ -20,6 +20,8 @@ export class OngoingPage implements OnInit {
   public countdownToReturn?: NodeJS.Timeout;
   public secondsRemainToReturn = 10;
 
+  public theme: string = 'dark';
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -32,6 +34,8 @@ export class OngoingPage implements OnInit {
     this.statusInterval = setInterval(() => {
       this.verifyRobotStatus();
     }, 10 * 1000); // 10 Seconds
+
+    this.theme = localStorage.getItem('color-theme') ?? 'dark';
   }
 
   async verifyRobotStatus(isToHome = false) {

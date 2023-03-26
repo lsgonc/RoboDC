@@ -14,6 +14,9 @@ import {
   styleUrls: ['./eventos.page.scss'],
 })
 export class EventosPage implements OnInit {
+  public loading: boolean = false;
+  public fetchError: boolean = false;
+
   public events: EventsGroupedByDay = {};
   public eventsGroupsKeys: string[] = [];
 
@@ -25,6 +28,8 @@ export class EventosPage implements OnInit {
 
   async getEvents() {
     try {
+      this.loading = true;
+
       const response = await lastValueFrom(
         this.httpClient.get<EventResponseDto[]>(
           `https://api.dc.ufscar.br/api/eventos`
@@ -48,6 +53,9 @@ export class EventosPage implements OnInit {
       }, {});
     } catch (error) {
       console.log(error);
+      this.fetchError = true;
+    } finally {
+      this.loading = false;
     }
   }
 

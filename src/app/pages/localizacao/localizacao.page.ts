@@ -63,7 +63,7 @@ export class LocalizacaoPage implements OnInit {
     },
     Suporte: {
       title: 'Suporte',
-      image: 'suporte.jpg',
+      image: 'suporte.jpeg',
       description: 'Sala de suporte.',
     },
     'PPG-CC4': {
@@ -84,7 +84,7 @@ export class LocalizacaoPage implements OnInit {
     },
     Auditorio: {
       title: 'Auditório',
-      image: 'auditorio.jpg',
+      image: 'auditorio.jpeg',
       description: 'Auditório Prof. Mauro Biajiz.',
     },
     Banheiros: {
@@ -105,12 +105,12 @@ export class LocalizacaoPage implements OnInit {
     },
     Reunioes: {
       title: 'Reuniões',
-      image: 'reunioes.jpg',
+      image: 'reunioes.jpeg',
       description: 'Sala de reuniões.',
     },
     Chefia: {
       title: 'Chefia',
-      image: 'chefia.jpg',
+      image: 'chefia.jpeg',
       description: 'Chefia do Departamento de Computação.',
     },
     Graduacao: {

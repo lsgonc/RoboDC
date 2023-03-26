@@ -1,11 +1,11 @@
 <ion-content class="ion-padding">
   <span class="back-button" (click)="goToHome()">
     <ion-icon name="arrow-back-outline"></ion-icon>
-    Voltar
+    {{ 'common.back' | translate }}
   </span>
 
   <div class="container">
-    <h1>Para onde vamos?</h1>
+    <h1>{{ 'locations.guideMessage' | translate }}</h1>
 
     <div class="locations-area">
       <div
@@ -38,7 +38,7 @@
             <p>{{ locationsInfo[selectedLocation].description }}</p>
 
             <ion-button expand="block" size="large" (click)="goToOngoingPage()">
-              Me leve até lá
+              {{ 'locations.modalButton' | translate }}
             </ion-button>
           </div>
 
@@ -100,7 +100,7 @@
   <ion-fab-button id="map-modal">
     <div>
       <ion-icon name="map-outline"></ion-icon>
-      Mapa
+      {{ 'locations.map' | translate }}
     </div>
   </ion-fab-button>
 </ion-fab>

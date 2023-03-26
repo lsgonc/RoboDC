@@ -14,6 +14,9 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['./ru.page.scss'],
 })
 export class RuPage implements OnInit {
+  public loading: boolean = false;
+  public fetchError: boolean = false;
+
   public menus: RuApiResponseDto[] = [];
   public weekMenus: DayMenu[] = [];
 
@@ -31,6 +34,8 @@ export class RuPage implements OnInit {
 
   async getRuApi() {
     try {
+      this.loading = true;
+
       if (this.platform.is('hybrid')) {
         const response = await this.http.get(
           `https://petbcc.ufscar.br/ru_api/`,
@@ -54,6 +59,9 @@ export class RuPage implements OnInit {
       this.prepareWeekMenus();
     } catch (error) {
       console.log(error);
+      this.fetchError = true;
+    } finally {
+      this.loading = false;
     }
   }
 

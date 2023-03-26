@@ -7,8 +7,15 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientJsonpModule,
+  HttpClientModule,
+  HttpClient,
+} from '@angular/common/http';
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
+
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { registerLocaleData } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
@@ -16,6 +23,10 @@ import localePT from '@angular/common/locales/pt';
 
 registerLocaleData(localePT);
 registerLocaleData(localeEN);
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +36,14 @@ registerLocaleData(localeEN);
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      defaultLanguage: 'pt-BR',
+    }),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

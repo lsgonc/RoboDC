@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { OngoingPageRoutingModule } from './ongoing-routing.module';
 
 import { OngoingPage } from './ongoing.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    OngoingPageRoutingModule
+    OngoingPageRoutingModule,
+    TranslateModule,
   ],
-  declarations: [OngoingPage]
+  declarations: [OngoingPage],
 })
 export class OngoingPageModule {}

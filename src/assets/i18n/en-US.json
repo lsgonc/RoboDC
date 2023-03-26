@@ -1,0 +1,40 @@
+{
+  "common": {
+    "back": "Back"
+  },
+
+  "home": {
+    "welcome": "Welcome to the Computing Department!",
+    "guideMessage": "How can I help you?",
+    "location": "Location",
+    "ru": "R.U.",
+    "events": "Events"
+  },
+
+  "locations": {
+    "guideMessage": "Where are we going?",
+    "map": "Map",
+    "modalButton": "Take me there"
+  },
+
+  "ongoing": {
+    "followMe": "Follow me",
+    "followMeMessage": "I will take you to the ",
+    "weArrived": "We arrived!",
+    "weArrivedMessage": "I will return to the starting point in",
+    "goingBack": "Going back!",
+    "goingBackMessage": "Returning to <strong>Starting Point<strong>.",
+    "wrongLocation": "Wrong location?",
+    "stop": "Stop movement",
+    "end": "End"
+  },
+
+  "ru": {
+    "lunch": "Lunch",
+    "dinner": "Dinner"
+  },
+
+  "events": {
+
+  }
+}

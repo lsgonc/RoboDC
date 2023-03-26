@@ -1,35 +1,50 @@
 <ion-content class="ion-padding">
   <div class="container">
-    <img class="robot-img" src="/assets/robot.svg" alt="Imagem do Robô." />
+    <img
+      *ngIf="theme === 'dark'"
+      class="robot-img"
+      src="/assets/robot.svg"
+      alt="Imagem do Robô."
+    />
+
+    <img
+      *ngIf="theme === 'light'"
+      class="robot-img"
+      src="/assets/robot_light.svg"
+      alt="Imagem do Robô."
+    />
 
     <div class="robot-text" *ngIf="reachedTheGoal === null && !isGoingHome">
-      <h1>Me acompanhe</h1>
-      <h2>Irei te levar para <strong>{{ location }}</strong>.</h2>
+      <h1>{{ 'ongoing.followMe' | translate }}</h1>
+      <h2>
+        {{ 'ongoing.followMeMessage' | translate }}
+        <strong>{{ location }}</strong>.
+      </h2>
     </div>
 
     <div class="robot-text" *ngIf="reachedTheGoal">
-      <h1>Chegamos!</h1>
+      <h1>{{ 'ongoing.weArrived' | translate }}</h1>
       <h2>
-        Irei retornar para o ponto inicial em
+        {{ 'ongoing.weArrivedMessage' | translate }}
         <strong>{{ secondsRemainToReturn }}s</strong>.
       </h2>
     </div>
 
     <div class="robot-text" *ngIf="isGoingHome">
-      <h1>Voltando!</h1>
-      <h2>Retornando para o <strong>Ponto Inicial</strong>.</h2>
+      <h1>{{ 'ongoing.goingBack' | translate }}</h1>
+      <h2>{{ 'ongoing.goingBackMessage' | translate }}</h2>
     </div>
 
     <div class="wrong-location" *ngIf="reachedTheGoal === null">
-      <span>Local errado?</span>
+      <span>{{ 'ongoing.wrongLocation' | translate }}</span>
       <ion-button class="red-button" (click)="cancelMove()">
-        Parar movimento
+        {{ 'ongoing.stop' | translate }}
       </ion-button>
     </div>
 
     <div class="wrong-location" *ngIf="reachedTheGoal">
-      <ion-button class="green-button" (click)="cancelMove()">
-        Finalizar
+      <ion-button class="green-button" (click)="endsReturnCountdown()">
+        {{ 'ongoing.end' | translate }}
       </ion-button>
     </div>
   </div>

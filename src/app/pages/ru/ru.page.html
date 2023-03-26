@@ -1,10 +1,19 @@
 <ion-content class="ion-padding">
   <span class="back-button" [routerLink]="'/'">
     <ion-icon name="arrow-back-outline"></ion-icon>
-    Voltar
+    {{ 'common.back' | translate }}
   </span>
 
-  <div class="container">
+  <div class="container" *ngIf="loading">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <div class="container fetch-error" *ngIf="fetchError">
+    <img src="/assets/sleep_robot.svg" alt="Imagem do Robô Dormindo." />
+    <h3>Não foi possível obter os dados do Restaurante Universitário</h3>
+  </div>
+
+  <div class="container" *ngIf="!loading && !fetchError">
     <div class="select-bar">
       <div
         class="day"
@@ -19,7 +28,7 @@
 
     <div class="menu-area" *ngIf="selectedDayMenu">
       <div class="lunch" *ngIf="selectedDayMenu.lunch">
-        <h3>Almoço</h3>
+        <h3>{{ 'ru.lunch' | translate }}</h3>
         <div class="content">
           <p>
             <b>Prato Principal (Sem restrição):</b>
@@ -53,7 +62,7 @@
       </div>
 
       <div class="dinner" *ngIf="selectedDayMenu.dinner">
-        <h3>Jantar</h3>
+        <h3>{{ 'ru.dinner' | translate }}</h3>
         <div class="content">
           <p>
             <b>Prato Principal - Sem restrição:</b>
