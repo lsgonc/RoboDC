@@ -4,6 +4,8 @@ import { IonModal } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { Locations } from 'src/app/models/locations.types';
+import { TtsService } from 'src/app/services/tts.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-localizacao',
@@ -127,7 +129,12 @@ export class LocalizacaoPage implements OnInit {
     },
   };
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    public ttsService: TtsService,
+    private translate: TranslateService
+  ) {
     this.robot_api =
       localStorage.getItem('robot_api') || 'http://192.168.1.100:5000';
 
@@ -162,9 +169,16 @@ export class LocalizacaoPage implements OnInit {
         this.http.get(`${this.robot_api}/ros/goTo/${this.selectedLocation}`)
       );
 
+      this.ttsService.speak(
+        this.translate.instant('locations.followMeTtsMessage', {
+          location: this.selectedLocation,
+        })
+      );
+
       this.router.navigate(['ongoing', this.selectedLocation]);
     } catch (error) {
       console.log(error);
+      this.ttsService.speak(this.translate.instant('common.errorTtsMessage'));
     } finally {
       this.modal?.dismiss();
     }

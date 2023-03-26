@@ -56,17 +56,33 @@
 
     <div class="bottom-elements">
       <div class="left-elements">
-        <ion-icon
-          name="moon"
-          *ngIf="theme === 'dark'"
-          (click)="changeTheme('light')"
-        ></ion-icon>
+        <div class="theme-icon">
+          <ion-icon
+            name="moon"
+            *ngIf="theme === 'dark'"
+            (click)="changeTheme('light')"
+          ></ion-icon>
 
-        <ion-icon
-          name="sunny"
-          *ngIf="theme === 'light'"
-          (click)="changeTheme('dark')"
-        ></ion-icon>
+          <ion-icon
+            name="sunny"
+            *ngIf="theme === 'light'"
+            (click)="changeTheme('dark')"
+          ></ion-icon>
+        </div>
+
+        <div class="sound-icon">
+          <ion-icon
+            name="volume-high"
+            *ngIf="ttsService.tssIsOn"
+            (click)="changeTts(false)"
+          ></ion-icon>
+
+          <ion-icon
+            name="volume-mute"
+            *ngIf="!ttsService.tssIsOn"
+            (click)="changeTts(true)"
+          ></ion-icon>
+        </div>
       </div>
 
       <div class="rigth-elements">

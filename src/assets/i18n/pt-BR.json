@@ -1,6 +1,7 @@
 {
   "common": {
-    "back": "Voltar"
+    "back": "Voltar",
+    "errorTtsMessage": "Alguma coisa deu errado, verifique se tudo está devidamente configurado."
   },
 
   "home": {
@@ -8,13 +9,17 @@
     "guideMessage": "Como posso te ajudar?",
     "location": "Localização",
     "ru": "R.U.",
-    "events": "Eventos"
+    "events": "Eventos",
+    "lightThemeSelected": "Tema claro selecionado",
+    "darkThemeSelected": "Tema escuro selecionado",
+    "audioEnabled": "Audio habilitado"
   },
 
   "locations": {
     "guideMessage": "Para onde vamos?",
     "map": "Mapa",
-    "modalButton": "Me leve até lá"
+    "modalButton": "Me leve até lá",
+    "followMeTtsMessage": "Te levarei para {{location}}, me acompanhe"
   },
 
   "ongoing": {
@@ -22,6 +27,7 @@
     "followMeMessage": "Irei te levar para o ",
     "weArrived": "Chegamos!",
     "weArrivedMessage": "Irei retornar para o ponto inicial em",
+    "weArrivedTtsMessage": "Chegamos! Irei retornar para o ponto inicial em 10 segundos",
     "goingBack": "Voltando!",
     "goingBackMessage": "Retornando para o <strong>Ponto Inicial<strong>.",
     "wrongLocation": "Local errado?",
@@ -30,11 +36,13 @@
   },
 
   "ru": {
+    "ruTitle": "Restaurante Universitário",
+    "seeTheMenu": "Veja o cardápio da semana",
     "lunch": "Almoço",
     "dinner": "Jantar"
   },
 
   "events": {
-
+    "guideMessage": "Acompanhe os eventos do Departamento de Computação"
   }
 }

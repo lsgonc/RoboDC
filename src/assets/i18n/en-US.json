@@ -1,6 +1,7 @@
 {
   "common": {
-    "back": "Back"
+    "back": "Back",
+    "errorTtsMessage": "Something went wrong, check that everything is properly configured."
   },
 
   "home": {
@@ -8,13 +9,17 @@
     "guideMessage": "How can I help you?",
     "location": "Location",
     "ru": "R.U.",
-    "events": "Events"
+    "events": "Events",
+    "lightThemeSelected": "Light theme selected",
+    "darkThemeSelected": "Dark theme selected",
+    "audioEnabled": "Audio enabled"
   },
 
   "locations": {
     "guideMessage": "Where are we going?",
     "map": "Map",
-    "modalButton": "Take me there"
+    "modalButton": "Take me there",
+    "followMeTtsMessage": "I will take you to the {{location}}, follow me"
   },
 
   "ongoing": {
@@ -22,6 +27,7 @@
     "followMeMessage": "I will take you to the ",
     "weArrived": "We arrived!",
     "weArrivedMessage": "I will return to the starting point in",
+    "weArrivedTtsMessage": "We arrived! I will return to the starting point in 10 seconds",
     "goingBack": "Going back!",
     "goingBackMessage": "Returning to <strong>Starting Point<strong>.",
     "wrongLocation": "Wrong location?",
@@ -30,11 +36,13 @@
   },
 
   "ru": {
+    "ruTitle": "University restaurant",
+    "seeTheMenu": "See the week menu",
     "lunch": "Lunch",
     "dinner": "Dinner"
   },
 
   "events": {
-
+    "guideMessage": "Keep up with the Computing Department events"
   }
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { TtsService } from './../../services/tts.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -16,20 +18,30 @@ export class HomePage {
   public chessCounter: number = 0;
   public chessTimer?: NodeJS.Timeout;
 
-  constructor(private router: Router, private translate: TranslateService) {
+  constructor(
+    private router: Router,
+    private translate: TranslateService,
+    public ttsService: TtsService
+  ) {
     this.theme = localStorage.getItem('color-theme') ?? 'dark';
   }
 
-  goToLocationsPage() {
+  async goToLocationsPage() {
     this.router.navigate(['localizacao']);
+    await this.ttsService.speak(this.translate.instant('home.location'));
+    this.ttsService.speak(this.translate.instant('locations.guideMessage'));
   }
 
-  goToRUPage() {
+  async goToRUPage() {
     this.router.navigate(['ru']);
+    await this.ttsService.speak(this.translate.instant('ru.ruTitle'));
+    this.ttsService.speak(this.translate.instant('ru.seeTheMenu'));
   }
 
-  goToEventsPage() {
+  async goToEventsPage() {
     this.router.navigate(['eventos']);
+    await this.ttsService.speak(this.translate.instant('home.events'));
+    this.ttsService.speak(this.translate.instant('events.guideMessage'));
   }
 
   changeTheme(theme: string) {
@@ -37,11 +49,32 @@ export class HomePage {
     document.body.setAttribute('color-theme', theme);
 
     localStorage.setItem('color-theme', theme);
+
+    if (theme === 'light') {
+      this.ttsService.speak(this.translate.instant('home.lightThemeSelected'));
+    } else {
+      this.ttsService.speak(this.translate.instant('home.darkThemeSelected'));
+    }
   }
 
   changeLanguage(language: string) {
     this.translate.use(language);
     localStorage.setItem('language', language);
+
+    if (language === 'en-US') {
+      this.ttsService.lang = 'en-US';
+      this.ttsService.speak('English selected');
+    } else {
+      this.ttsService.lang = 'pt-BR';
+      this.ttsService.speak('Português selecionado');
+    }
+  }
+
+  changeTts(ttsIsOn: boolean) {
+    this.ttsService.tssIsOn = ttsIsOn;
+
+    if (ttsIsOn)
+      this.ttsService.speak(this.translate.instant('home.audioEnabled'));
   }
 
   configCountdown() {

@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 import { StateResponseDto } from 'src/app/models/ros.types';
+import { TtsService } from 'src/app/services/tts.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-ongoing',
@@ -27,7 +29,9 @@ export class OngoingPage implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    public ttsService: TtsService,
+    private translate: TranslateService
   ) {
     this.robot_api =
       localStorage.getItem('robot_api') || 'http://192.168.1.100:5000';
@@ -57,6 +61,10 @@ export class OngoingPage implements OnInit {
         this.router.navigate(['/']);
         return;
       }
+
+      this.ttsService.speak(
+        this.translate.instant('ongoing.weArrivedTtsMessage')
+      );
 
       this.reachedTheGoal = true;
       this.initReturnCountdown();
@@ -94,6 +102,8 @@ export class OngoingPage implements OnInit {
 
   async goToHome() {
     try {
+      this.ttsService.speak(this.translate.instant('ongoing.goingBack'));
+
       this.isGoingHome = true;
 
       await lastValueFrom(this.http.get(`${this.robot_api}/ros/goTo/Home`));
@@ -103,6 +113,7 @@ export class OngoingPage implements OnInit {
       }, 10 * 1000); // 10 Seconds
     } catch (error) {
       console.log(error);
+      this.ttsService.speak(this.translate.instant('common.errorTtsMessage'));
     }
   }
 
