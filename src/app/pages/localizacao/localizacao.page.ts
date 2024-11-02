@@ -19,7 +19,6 @@ export class LocalizacaoPage implements OnInit {
   public robot_api: string = '';
 
   public selectedLocation: string = '';
-  public selectedLocationDescription: string = '';
 
   public locations: string[] = [
     'LE-1',
@@ -137,8 +136,6 @@ export class LocalizacaoPage implements OnInit {
   ) {
     this.robot_api =
       localStorage.getItem('robot_api') || 'http://192.168.1.100:5000';
-
-    console.log(this.robot_api);
   }
 
   ngOnInit() {}
@@ -149,9 +146,6 @@ export class LocalizacaoPage implements OnInit {
 
   presentModal(location: string) {
     this.selectedLocation = location;
-    this.selectedLocationDescription =
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-
     this.modal?.present();
   }
 
