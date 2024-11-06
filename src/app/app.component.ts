@@ -1,16 +1,41 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { FaceApiService } from './services/face-api.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
-  constructor(private translate: TranslateService) {
+export class AppComponent implements OnInit, AfterViewInit {
+  videoElement!: HTMLVideoElement;
+
+  constructor(private translate: TranslateService, public faceApi: FaceApiService) {
     this.configHandler();
     this.themeHandler();
     this.languageHandler();
+  }
+
+  async ngOnInit() {
+    await this.faceApi.loadModels();
+  }
+
+  async ngAfterViewInit() {
+    this.videoElement = document.getElementById('videoElement1') as HTMLVideoElement;
+    this.startVideoStream();
+
+    this.videoElement.addEventListener('playing', () => {
+      this.faceApi.onPlay(this.videoElement, '1');
+    });
+  }
+
+  startVideoStream() {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } }) // 'environment' para a câmera traseira
+      .then(stream => {
+        this.videoElement.srcObject = stream;
+        this.videoElement.play();
+      })
+      .catch(err => console.error('Erro ao acessar a câmera:', err));
   }
 
   themeHandler() {

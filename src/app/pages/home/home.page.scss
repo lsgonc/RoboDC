@@ -68,6 +68,115 @@
         bottom: -1.8rem;
       }
     }
+
+    .expressions-button {
+      border: 4px solid #E8F4FF;
+      padding: 0;
+
+      .inner-content {
+        border: 0;
+        border-radius: 8px;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .expressions-assets {
+        position: absolute;
+        right: 0;
+        top: 0;
+        border: 0;
+        border-radius: 8px;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: transparent;
+        transition: 0.5s linear;
+      }
+
+      #left1 {
+        position: absolute;
+        top: -230px;
+        left: -138px;
+        height: 500px;
+        animation: left1-moving 10s infinite ease-in-out;
+      }
+
+      @keyframes left1-moving {
+        0% { top: -230px; }
+        50% { top: -200px }
+        100% { top: -230px }
+      }
+
+      #left2 {
+        position: absolute;
+        top: -50px;
+        left: -130px;
+        height: 380px;
+        animation: left2-moving 8s infinite ease-out;
+      }
+
+      @keyframes left2-moving {
+        0% { top: -50px; }
+        50% { top: -80px }
+        100% { top: -50px }
+      }
+
+      #top1 {
+        position: absolute;
+        top: -135px;
+        left: -30px;
+        animation: top1-moving 6s infinite ease-in-out;
+      }
+
+      @keyframes top1-moving {
+        0% { left: -30px; }
+        50% { left: -10px; }
+        100% { left: -30px; }
+      }
+
+      #top2 {
+        position: absolute;
+        top: -155px;
+        left: -140px;
+        width: 500px;
+        animation: top2-moving 10s infinite ease-out;
+      }
+
+      @keyframes top2-moving {
+        0% { left: -140px; }
+        50% { left: -160px; }
+        100% { left: -140px; }
+      }
+
+      #right1 {
+        position: absolute;
+        top: -80px;
+        right: -135px;
+        height: 500px;
+        animation: right1-moving 11s infinite ease-in-out;
+      }
+
+      @keyframes right1-moving {
+        0% { top: -80px; }
+        50% { top: -100px; }
+        100% { top: -80px; }
+      }
+
+      #right2 {
+        position: absolute;
+        top: -90px;
+        right: -190px;
+        height: 500px;
+        animation: right2-moving 5s infinite linear;
+      }
+
+      @keyframes right2-moving {
+        0% {  top: -90px; right: -190px; }
+        50% {  top: -70px; right: -180px; }
+        100% {  top: -90px; right: -190px; }
+      }
+    }
   }
 
   .bottom-elements {

@@ -20,6 +20,11 @@ const routes: Routes = [
       import('./pages/eventos/eventos.module').then((m) => m.EventosPageModule),
   },
   {
+    path: 'expressoes',
+    loadChildren: () =>
+      import('./pages/expressions/expressions.module').then((m) => m.ExpressionsPageModule),
+  },
+  {
     path: 'ru',
     loadChildren: () =>
       import('./pages/ru/ru.module').then((m) => m.RuPageModule),
@@ -41,6 +46,10 @@ const routes: Routes = [
   {
     path: 'config',
     loadChildren: () => import('./pages/config/config.module').then( m => m.ConfigPageModule)
+  },
+  {
+    path: 'expressions',
+    loadChildren: () => import('./pages/expressions/expressions.module').then( m => m.ExpressionsPageModule)
   },
 ];
 

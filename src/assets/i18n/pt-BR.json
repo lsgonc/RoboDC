@@ -10,6 +10,7 @@
     "location": "Localização",
     "ru": "R.U.",
     "events": "Eventos",
+    "expressions": "Expressões",
     "lightThemeSelected": "Tema claro selecionado",
     "darkThemeSelected": "Tema escuro selecionado",
     "audioEnabled": "Audio habilitado"
@@ -44,5 +45,13 @@
 
   "events": {
     "guideMessage": "Acompanhe os eventos do Departamento de Computação"
+  },
+
+  "expressions": {
+    "guideMessage": "Reconhecimento de expressões"
+  },
+
+  "detector": {
+    "mark": "Detectando expressão"
   }
 }

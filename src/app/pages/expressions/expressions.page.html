@@ -1,0 +1,24 @@
+<ion-content>
+  <span class="back-button" (click)="goToHome()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+    {{ 'common.back' | translate }}
+  </span>
+
+  <div class="container fetch-error" *ngIf="error">
+    <img src="/assets/sleep_robot.svg" alt="Imagem do Robô Dormindo." />
+    <h3>Algo não está funcionando corretamente.</h3>
+  </div>
+
+  <div class="container" *ngIf="!error" [style.background-color]="getBackgroundColor()">
+    <div class="content">
+      <div class="video-container">
+        <canvas id="canvas"></canvas>
+        <video id="videoElement2" autoplay muted playsinline></video>
+      </div>
+      <div class="text-container">
+        {{ faceApi.expressionMsg }} <br />
+        {{ faceApi.ageAndGenderMsg }}
+      </div>
+    </div>
+  </div>
+</ion-content>

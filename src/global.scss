@@ -42,3 +42,8 @@
 
   font-size: 1.5rem;
 }
+
+canvas {
+  position: absolute;
+  z-index: 999;
+}

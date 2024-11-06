@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TtsService } from './../../services/tts.service';
 import { TranslateService } from '@ngx-translate/core';
+import { FaceApiService } from 'src/app/services/face-api.service';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomePage {
   constructor(
     private router: Router,
     private translate: TranslateService,
+    public faceApi: FaceApiService,
     public ttsService: TtsService
   ) {
     this.theme = localStorage.getItem('color-theme') ?? 'dark';
@@ -42,6 +44,12 @@ export class HomePage {
     this.router.navigate(['eventos']);
     await this.ttsService.speak(this.translate.instant('home.events'));
     this.ttsService.speak(this.translate.instant('events.guideMessage'));
+  }
+
+  async goToExpressionsPage() {
+    this.router.navigate(['expressions']);
+    await this.ttsService.speak(this.translate.instant('home.expressions'));
+    this.ttsService.speak(this.translate.instant('expressions.guideMessage'));
   }
 
   changeTheme(theme: string) {
