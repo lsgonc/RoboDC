@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
+
 import { FaceApiService } from 'src/app/services/face-api.service';
 
 @Component({
@@ -17,8 +18,7 @@ export class ExpressionsPage implements OnInit, OnDestroy {
 
   constructor(private router: Router, public faceApi: FaceApiService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   async ngAfterViewInit() {
     this.videoElement = document.getElementById('videoElement2') as HTMLVideoElement;

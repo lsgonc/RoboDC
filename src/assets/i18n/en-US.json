@@ -52,6 +52,11 @@
   },
 
   "detector": {
+    "welcome1": "Hello!",
+    "welcome2": "Hi!",
+    "welcome3": "Hello, I see you!",
+    "welcome4": "Hi, how are you?",
+    "welcome5": "Hello, how can I help you?",
     "mark": "Detecting"
   }
 }

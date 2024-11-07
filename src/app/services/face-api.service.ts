@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom, timeout } from 'rxjs';
+import { TtsService } from './tts.service';
 
 declare var faceapi: any;
 
@@ -19,6 +22,7 @@ enum EmotionsColors {
 export class FaceApiService {
   modelLoadError = false;
 
+  currentEyesSide?: string;
   currentEmotion = '';
   emotionPorcentage = '';
   expressionColor = EmotionsColors.neutral;
@@ -28,11 +32,16 @@ export class FaceApiService {
   currentGender = '';
   ageAndGenderMsg = '';
 
+  lastSendedExpression?: string;
+
   landmarkIntervals: NodeJS.Timeout[] = [];
 
-  showVideo = false;
+  firstDetectionMessageSaid = false;
+  firstDetectionMessageTimestamp: number = Date.now() - 60000;
 
-  constructor(private translate: TranslateService) { }
+  lastChangeExpressionSended = Date.now() - 60000;
+
+  constructor(private translate: TranslateService, private http: HttpClient, private tts: TtsService) { }
 
   async loadModels() {
     try {
@@ -132,29 +141,58 @@ export class FaceApiService {
       this.currentEmotion = '';
       this.emotionPorcentage = '';
     }
+
+    if (Date.now() - this.lastChangeExpressionSended > 1000) {
+      this.changeRobotFace(this.currentEmotion);
+    }
   }
 
   async onPlay(videoElement: HTMLVideoElement, id?: string) {
-    /* console.log('On Play!', id); */
-
     if (this.modelLoadError) {
       console.log('Erro ao carregar modelos, abortando...');
       return;
     }
 
     setInterval(async () => {
-      /* console.log('Detecting', id); */
-
       const detection = await faceapi.detectSingleFace(videoElement, new faceapi.TinyFaceDetectorOptions())
         .withFaceExpressions();
+
+      if (detection && detection.detection) {
+
+        if (!this.firstDetectionMessageSaid && Date.now() - this.firstDetectionMessageTimestamp > 15000) {
+          this.firstDetectionMessageSaid = true;
+          this.firstDetectionMessageTimestamp = Date.now();
+
+          const randomNumber = Math.floor(Math.random() * 5) + 1;
+          this.tts.speak(this.translate.instant(`detector.welcome${randomNumber}`));
+        }
+
+        const displaySize = {
+          width: videoElement.width || videoElement.videoWidth,
+          height: videoElement.height || videoElement.videoHeight
+        };
+
+        const x = detection.detection.box.x + detection.detection.box.width / 2;
+
+        const sectionWidth = displaySize.width / 8;
+
+        if (x < sectionWidth) this.currentEyesSide = '82';
+        else if (x < sectionWidth * 2) this.currentEyesSide = '74';
+        else if (x < sectionWidth * 3) this.currentEyesSide = '66';
+        else if (x < sectionWidth * 4 || x < sectionWidth * 5) this.currentEyesSide = undefined;
+        else if (x < sectionWidth * 6) this.currentEyesSide = '42';
+        else if (x < sectionWidth * 7) this.currentEyesSide = '50';
+        else this.currentEyesSide = '58';
+
+      } else {
+        this.firstDetectionMessageSaid = false;
+      }
 
       this.setExpression(detection);
     }, 800);
   }
 
   async drawLandmarks(videoElement: HTMLVideoElement, canvas: HTMLCanvasElement, id?: string) {
-    /* console.log('Draw Landmarks', id); */
-
     const displaySize = {
       width: videoElement.width || videoElement.videoWidth,
       height: videoElement.height || videoElement.videoHeight
@@ -168,8 +206,6 @@ export class FaceApiService {
     }
 
     this.landmarkIntervals.push(setInterval(async () => {
-      /* console.log('Detecting landmarks', id); */
-
       const detection = await faceapi.detectSingleFace(videoElement, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks()
         .withAgeAndGender();
@@ -190,23 +226,59 @@ export class FaceApiService {
 
         const resizedDetections = faceapi.resizeResults(detection, displaySize);
 
-        faceapi.draw.drawDetections(canvas, resizedDetections);
-
-        const options = { boxColor: '#076CA1', label: this.translate.instant('detector.mark')};
-        const box = resizedDetections.detection.box;
-        const drawBox = new faceapi.draw.DrawBox(box, options);
-        drawBox.draw(canvas);
-
         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
       } else {
-        this.expressionMsg = 'Sem expressão definida<br/>Você tá aí mesmo? 👻';
+        this.expressionMsg = 'Sem expressão definida 👻';
       }
-    }, 200));
+    }, 300));
   }
 
   clearLandmarkIntervals() {
     this.landmarkIntervals.forEach(element => {
       clearInterval(element);
     });
+  }
+
+  changeRobotFace(expression: string) {
+    if (this.lastSendedExpression === expression) return;
+
+    this.lastSendedExpression = expression;
+
+    let expressionValues = [];
+
+    if (this.currentEmotion === 'angry') {
+      expressionValues.push('26');
+      expressionValues.push('21');
+    }
+    else if (this.currentEmotion === 'disgusted') {
+      expressionValues.push('26');
+      expressionValues.push('37');
+    }
+    else if (this.currentEmotion === 'fearful') {
+      expressionValues.push('34');
+      expressionValues.push('21');
+    }
+    else if (this.currentEmotion === 'happy') {
+      expressionValues.push('9');
+    }
+    else if (this.currentEmotion === 'sad') {
+      expressionValues.push('17');
+    }
+    else if (this.currentEmotion === 'surprised') {
+      expressionValues.push('34');
+      expressionValues.push('53');
+    }
+    else {
+      expressionValues.push('10');
+      expressionValues.push('45');
+    }
+
+    if (this.currentEyesSide) expressionValues.push(this.currentEyesSide);
+
+    const robot_api = localStorage.getItem('robot_api') || 'http://192.168.1.100:5000';
+
+    lastValueFrom(
+      this.http.post(`${robot_api}/changeExpression/`, { expressionValues }).pipe(timeout(2000))
+    ).catch(e => console.log('Erro ao enviar expressão para o robô'));
   }
 }

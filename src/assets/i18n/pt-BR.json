@@ -52,6 +52,11 @@
   },
 
   "detector": {
+    "welcome1": "Olá!",
+    "welcome2": "Oi!",
+    "welcome3": "Olá, estou te vendo!",
+    "welcome4": "Oi, como vai?",
+    "welcome5": "Olá, como posso te ajudar?",
     "mark": "Detectando expressão"
   }
 }

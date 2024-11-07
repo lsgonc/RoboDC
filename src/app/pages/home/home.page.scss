@@ -4,7 +4,6 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-
   background-color: var(--backgroud-color);
 
   .welcome-area {
@@ -99,13 +98,13 @@
         top: -230px;
         left: -138px;
         height: 500px;
-        animation: left1-moving 10s infinite ease-in-out;
+        animation: left1-moving 6s infinite ease-in-out;
       }
 
       @keyframes left1-moving {
-        0% { top: -230px; }
-        50% { top: -200px }
-        100% { top: -230px }
+        0% { top: -230px; left: -138px; }
+        50% { top: -200px; left: -130px; }
+        100% { top: -230px; left: -138px; }
       }
 
       #left2 {
@@ -126,7 +125,7 @@
         position: absolute;
         top: -135px;
         left: -30px;
-        animation: top1-moving 6s infinite ease-in-out;
+        animation: top1-moving 4s infinite ease-in-out;
       }
 
       @keyframes top1-moving {
@@ -201,9 +200,9 @@
       font-size: 1.6rem;
 
       ion-icon {
+        cursor: pointer;
         transition: .5s;
       }
-
     }
 
     .rigth-elements {

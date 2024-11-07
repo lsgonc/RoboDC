@@ -79,7 +79,7 @@
     </div>
 
     <!-- SPACER -->
-    <div style="height: 4.5rem"></div>
+    <div style="height: 4.5rem;"></div>
 
     <div class="bottom-elements">
       <div class="left-elements">
@@ -108,6 +108,13 @@
             name="volume-mute"
             *ngIf="!ttsService.tssIsOn"
             (click)="changeTts(true)"
+          ></ion-icon>
+        </div>
+
+        <div class="controller-icon">
+          <ion-icon
+            name="game-controller"
+            (click)="goToControlPage()"
           ></ion-icon>
         </div>
       </div>

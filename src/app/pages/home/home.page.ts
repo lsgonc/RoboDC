@@ -85,6 +85,10 @@ export class HomePage {
       this.ttsService.speak(this.translate.instant('home.audioEnabled'));
   }
 
+  goToControlPage() {
+
+  }
+
   configCountdown() {
     this.configCounter++;
 
