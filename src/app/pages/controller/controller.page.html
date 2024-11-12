@@ -1,0 +1,73 @@
+<ion-content>
+  <span class="back-button" (click)="goToHome()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+    {{ 'common.back' | translate }}
+  </span>
+
+  <div class="container fetch-error" *ngIf="fetchError">
+    <img src="/assets/sleep_robot.svg" alt="Imagem do Robô Dormindo." />
+    <h3>Não foi possível obter os dados do Departamento de Computação</h3>
+  </div>
+
+  <div class="container" *ngIf="!fetchError">
+    <div class="direction-controllers">
+      <div class="direction-icon">
+        <ion-icon name="arrow-up-outline"></ion-icon>
+      </div>
+      <div class="direction-icon">
+        <ion-icon name="arrow-up-outline"></ion-icon>
+      </div>
+      <div class="direction-icon">
+        <ion-icon name="arrow-up-outline"></ion-icon>
+      </div>
+      <div class="direction-icon">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </div>
+      <div class="direction-icon">
+        <ion-icon name="ellipse-outline"></ion-icon>
+      </div>
+      <div class="direction-icon">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </div>
+      <div class="direction-icon">
+        <ion-icon name="arrow-down-outline"></ion-icon>
+      </div>
+      <div class="direction-icon">
+        <ion-icon name="arrow-down-outline"></ion-icon>
+      </div>
+      <div class="direction-icon"><ion-icon name="arrow-down-outline"></ion-icon></div>
+    </div>
+
+    <div class="status">
+      <span>Desconectado</span>
+      <div class="status-console">
+      </div>
+    </div>
+
+    <div class="velocity-controllers">
+      <div class="velocity-controller">
+        <span>Velocidade Linear: 0.1</span>
+        <div class="velocity-buttons">
+          <div class="velocity-button">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+          </div>
+          <div class="velocity-button">
+            <ion-icon name="arrow-down-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="velocity-controller">
+        <span>Velocidade Angular: 0.1</span>
+        <div class="velocity-buttons">
+          <div class="velocity-button">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+          </div>
+          <div class="velocity-button">
+            <ion-icon name="arrow-down-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

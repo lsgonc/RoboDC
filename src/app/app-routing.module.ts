@@ -51,6 +51,10 @@ const routes: Routes = [
     path: 'expressions',
     loadChildren: () => import('./pages/expressions/expressions.module').then( m => m.ExpressionsPageModule)
   },
+  {
+    path: 'controller',
+    loadChildren: () => import('./pages/controller/controller.module').then( m => m.ControllerPageModule)
+  },
 ];
 
 @NgModule({

@@ -86,7 +86,7 @@ export class HomePage {
   }
 
   goToControlPage() {
-
+    this.router.navigate(['controller']);
   }
 
   configCountdown() {

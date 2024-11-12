@@ -143,6 +143,7 @@ export class FaceApiService {
     }
 
     if (Date.now() - this.lastChangeExpressionSended > 1000) {
+      this.lastChangeExpressionSended = Date.now();
       this.changeRobotFace(this.currentEmotion);
     }
   }
@@ -246,25 +247,25 @@ export class FaceApiService {
 
     let expressionValues = [];
 
-    if (this.currentEmotion === 'angry') {
+    if (expression === 'angry') {
       expressionValues.push('26');
       expressionValues.push('21');
     }
-    else if (this.currentEmotion === 'disgusted') {
+    else if (expression === 'disgusted') {
       expressionValues.push('26');
       expressionValues.push('37');
     }
-    else if (this.currentEmotion === 'fearful') {
+    else if (expression === 'fearful') {
       expressionValues.push('34');
       expressionValues.push('21');
     }
-    else if (this.currentEmotion === 'happy') {
+    else if (expression === 'happy' || expression === '') {
       expressionValues.push('9');
     }
-    else if (this.currentEmotion === 'sad') {
+    else if (expression === 'sad') {
       expressionValues.push('17');
     }
-    else if (this.currentEmotion === 'surprised') {
+    else if (expression === 'surprised') {
       expressionValues.push('34');
       expressionValues.push('53');
     }
@@ -278,7 +279,7 @@ export class FaceApiService {
     const robot_api = localStorage.getItem('robot_api') || 'http://192.168.1.100:5000';
 
     lastValueFrom(
-      this.http.post(`${robot_api}/changeExpression/`, { expressionValues }).pipe(timeout(2000))
+      this.http.post(`${robot_api}/led/changeExpression`, { expressionValues }).pipe(timeout(1000))
     ).catch(e => console.log('Erro ao enviar expressão para o robô'));
   }
 }
