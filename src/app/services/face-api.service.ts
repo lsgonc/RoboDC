@@ -6,6 +6,8 @@ import { TtsService } from './tts.service';
 
 declare var faceapi: any;
 
+export const DETECTION_INTERVAL = 200;
+
 enum EmotionsColors {
   angry = '#FF0000',
   disgusted = '#228B22',
@@ -33,6 +35,7 @@ export class FaceApiService {
   ageAndGenderMsg = '';
 
   lastSendedExpression?: string;
+  lastSendedEyes?: string;
 
   landmarkIntervals: NodeJS.Timeout[] = [];
 
@@ -100,13 +103,13 @@ export class FaceApiService {
         }
       }
 
-      if (mostProbEmotionValue > 0.6) {
+      if (mostProbEmotionValue > 0.8) {
         this.currentEmotion = mostProbEmotion;
         this.expressionColor = EmotionsColors[mostProbEmotion as keyof typeof EmotionsColors];
         this.emotionPorcentage = (mostProbEmotionValue * 100).toFixed(2) + '%';
       }
 
-      let expressionMsg = 'Sem expressão definida<br/>Você tá aí mesmo? 👻';
+      let expressionMsg = 'Sem expressão definida 👻';
 
       if (this.currentEmotion === 'angry') {
           expressionMsg = (this.currentGender === 'male' ? 'Você está nervoso 😡' : 'Está nervosa 😡');
@@ -142,7 +145,7 @@ export class FaceApiService {
       this.emotionPorcentage = '';
     }
 
-    if (Date.now() - this.lastChangeExpressionSended > 1000) {
+    if (Date.now() - this.lastChangeExpressionSended > 300) {
       this.lastChangeExpressionSended = Date.now();
       this.changeRobotFace(this.currentEmotion);
     }
@@ -190,7 +193,7 @@ export class FaceApiService {
       }
 
       this.setExpression(detection);
-    }, 800);
+    }, DETECTION_INTERVAL);
   }
 
   async drawLandmarks(videoElement: HTMLVideoElement, canvas: HTMLCanvasElement, id?: string) {
@@ -231,7 +234,7 @@ export class FaceApiService {
       } else {
         this.expressionMsg = 'Sem expressão definida 👻';
       }
-    }, 300));
+    }, DETECTION_INTERVAL));
   }
 
   clearLandmarkIntervals() {
@@ -267,14 +270,15 @@ export class FaceApiService {
     }
     else if (expression === 'surprised') {
       expressionValues.push('34');
-      expressionValues.push('53');
-    }
-    else {
-      expressionValues.push('10');
       expressionValues.push('45');
     }
+    else {
+      if (this.currentEyesSide) expressionValues.push(this.currentEyesSide);
+      else expressionValues.push('10');
 
-    if (this.currentEyesSide) expressionValues.push(this.currentEyesSide);
+      expressionValues.push('37');
+    }
+
 
     const robot_api = localStorage.getItem('robot_api') || 'http://192.168.1.100:5000';
 
