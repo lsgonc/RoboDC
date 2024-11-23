@@ -11,59 +11,67 @@
 
   <div class="container" *ngIf="!fetchError">
     <div class="direction-controllers">
-      <div class="direction-icon">
+      <div class="direction-icon" (click)="emitCmdVel(sLinear, sAngular)">
         <ion-icon name="arrow-up-outline"></ion-icon>
       </div>
-      <div class="direction-icon">
+      <div class="direction-icon" (click)="emitCmdVel(sLinear, 0)">
         <ion-icon name="arrow-up-outline"></ion-icon>
       </div>
-      <div class="direction-icon">
+      <div class="direction-icon" (click)="emitCmdVel(sLinear, -sAngular)">
         <ion-icon name="arrow-up-outline"></ion-icon>
       </div>
-      <div class="direction-icon">
+      <div class="direction-icon" (click)="emitCmdVel(0, sAngular)">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>
-      <div class="direction-icon">
+      <div class="direction-icon" (click)="emitCmdVel(0, 0)">
         <ion-icon name="ellipse-outline"></ion-icon>
       </div>
-      <div class="direction-icon">
+      <div class="direction-icon" (click)="emitCmdVel(0, -sAngular)">
         <ion-icon name="arrow-forward-outline"></ion-icon>
       </div>
-      <div class="direction-icon">
+      <div class="direction-icon" (click)="emitCmdVel(-sLinear, -sAngular)">
         <ion-icon name="arrow-down-outline"></ion-icon>
       </div>
-      <div class="direction-icon">
+      <div class="direction-icon" (click)="emitCmdVel(-sLinear, 0)">
         <ion-icon name="arrow-down-outline"></ion-icon>
       </div>
-      <div class="direction-icon"><ion-icon name="arrow-down-outline"></ion-icon></div>
+      <div class="direction-icon" (click)="emitCmdVel(-sLinear, sAngular)">
+        <ion-icon name="arrow-down-outline"></ion-icon>
+      </div>
     </div>
 
     <div class="status">
-      <span>Desconectado</span>
       <div class="status-console">
+        <p *ngFor="let log of logs.slice().reverse()">{{ log }}</p>
+      </div>
+      <div *ngIf="!isConnected" class="connect-button" style="background-color: #1ca84f;" (click)="connect()">
+        Conectar
+      </div>
+      <div *ngIf="isConnected" class="connect-button" style="background-color: #e25444;" (click)="disconnect()">
+        Desconectar
       </div>
     </div>
 
     <div class="velocity-controllers">
       <div class="velocity-controller">
-        <span>Velocidade Linear: 0.1</span>
+        <span>Velocidade Linear: {{ sLinear.toFixed(1) }}</span>
         <div class="velocity-buttons">
-          <div class="velocity-button">
+          <div class="velocity-button" (click)="increaseLinear()">
             <ion-icon name="arrow-up-outline"></ion-icon>
           </div>
-          <div class="velocity-button">
+          <div class="velocity-button" (click)="decreaseLinear()">
             <ion-icon name="arrow-down-outline"></ion-icon>
           </div>
         </div>
       </div>
 
       <div class="velocity-controller">
-        <span>Velocidade Angular: 0.1</span>
+        <span>Velocidade Angular: {{ sAngular.toFixed(1) }}</span>
         <div class="velocity-buttons">
-          <div class="velocity-button">
+          <div class="velocity-button" (click)="increaseAngular()">
             <ion-icon name="arrow-up-outline"></ion-icon>
           </div>
-          <div class="velocity-button">
+          <div class="velocity-button" (click)="decreaseAngular()">
             <ion-icon name="arrow-down-outline"></ion-icon>
           </div>
         </div>

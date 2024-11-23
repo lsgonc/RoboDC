@@ -211,26 +211,25 @@ export class FaceApiService {
 
     this.landmarkIntervals.push(setInterval(async () => {
       const detection = await faceapi.detectSingleFace(videoElement, new faceapi.TinyFaceDetectorOptions())
-        .withFaceLandmarks()
         .withAgeAndGender();
 
-      const context = canvas.getContext('2d');
+      /* const context = canvas.getContext('2d');
 
       if (context) {
         context.clearRect(0, 0, canvas.width, canvas.height);
-      }
+      } */
 
       if (detection) {
         this.setAgeAndGender(detection);
 
-        if (displaySize.width === 0 || displaySize.height === 0) {
+        /* if (displaySize.width === 0 || displaySize.height === 0) {
           console.error('Dimensões do vídeo são inválidas:', displaySize);
           return;
         }
 
         const resizedDetections = faceapi.resizeResults(detection, displaySize);
 
-        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections); */
       } else {
         this.expressionMsg = 'Sem expressão definida 👻';
       }

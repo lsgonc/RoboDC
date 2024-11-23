@@ -63,5 +63,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       'robot_api',
       localStorage.getItem('robot_api') || 'http://192.168.1.100:5000'
     );
+
+    localStorage.setItem(
+      'robot_ws',
+      localStorage.getItem('robot_ws') || 'ws://192.168.1.100:9090'
+    );
   }
 }

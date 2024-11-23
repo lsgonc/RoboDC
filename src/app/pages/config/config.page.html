@@ -15,6 +15,14 @@
       ></ion-input>
     </ion-item>
 
+    <ion-item fill="outline">
+      <ion-label position="stacked">RoboDC WebSocket</ion-label>
+      <ion-input
+        [(ngModel)]="robot_ws"
+        placeholder="Ex: ws://192.168.1.100:9090"
+      ></ion-input>
+    </ion-item>
+
     <ion-button expand="full" (click)="save()"> Salvar </ion-button>
     <ion-button expand="full" (click)="reset()"> Redefinir </ion-button>
   </div>
