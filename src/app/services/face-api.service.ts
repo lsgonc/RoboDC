@@ -71,21 +71,21 @@ export class FaceApiService {
 
     let msg = '';
     if (this.currentGender) {
-        if (data.age <= 4) {
-            msg = (this.currentGender === 'male' ? 'um bebê' : 'uma bebê');
-        } else if (data.age > 4 && data.age < 12) {
-            msg = (this.currentGender === 'male' ? 'um menininho, criança' : 'uma menininha, criança');
-        } else if (data.age > 12 && data.age < 18) {
-            msg = (this.currentGender === 'male' ? 'um menino' : 'um menina');
-        } else if (data.age > 18 && data.age < 28) {
-            msg = (this.currentGender === 'male' ? 'um jovem adulto' : 'um jovem adulta');
-        } else if (data.age > 28 && data.age < 55) {
-            msg = (this.currentGender === 'male' ? 'um adulto' : 'um adulta');
-        } else if (data.age > 55) {
-            msg = (this.currentGender === 'male' ? 'um senhor de idade' : 'uma senhora de idade');
-        }
+      if (data.age <= 4) {
+        msg = (this.currentGender === 'male' ? 'um bebê' : 'uma bebê');
+      } else if (data.age > 4 && data.age < 12) {
+        msg = (this.currentGender === 'male' ? 'um menininho, criança' : 'uma menininha, criança');
+      } else if (data.age > 12 && data.age < 18) {
+        msg = (this.currentGender === 'male' ? 'um menino' : 'um menina');
+      } else if (data.age > 18 && data.age < 30) {
+        msg = (this.currentGender === 'male' ? 'um jovem adulto' : 'um jovem adulta');
+      } else if (data.age > 30 && data.age < 70) {
+        msg = (this.currentGender === 'male' ? 'um adulto' : 'um adulta');
+      } else if (data.age > 70) {
+        msg = (this.currentGender === 'male' ? 'um senhor de idade' : 'uma senhora de idade');
+      }
 
-        msg = `E é ${msg}`;
+      msg = `E é ${msg}`;
     }
 
     this.ageAndGenderMsg = msg;
@@ -103,7 +103,7 @@ export class FaceApiService {
         }
       }
 
-      if (mostProbEmotionValue > 0.8) {
+      if (mostProbEmotionValue > 0.95) {
         this.currentEmotion = mostProbEmotion;
         this.expressionColor = EmotionsColors[mostProbEmotion as keyof typeof EmotionsColors];
         this.emotionPorcentage = (mostProbEmotionValue * 100).toFixed(2) + '%';
@@ -112,31 +112,31 @@ export class FaceApiService {
       let expressionMsg = 'Sem expressão definida 👻';
 
       if (this.currentEmotion === 'angry') {
-          expressionMsg = (this.currentGender === 'male' ? 'Você está nervoso 😡' : 'Está nervosa 😡');
+        expressionMsg = (this.currentGender === 'male' ? 'Você está nervoso 😡' : 'Está nervosa 😡');
       } else if (this.currentEmotion === 'disgusted') {
-          expressionMsg = 'Você está com nojo 🤮';
+        expressionMsg = 'Você está com nojo 🤮';
       } else if (this.currentEmotion === 'fearful') {
-          expressionMsg = 'Você está com medo 😨';
+        expressionMsg = 'Você está com medo 😨';
       } else if (this.currentEmotion === 'happy') {
-          expressionMsg = 'Você está feliz 😀';
+        expressionMsg = 'Você está feliz 😀';
       } else if (this.currentEmotion === 'neutral') {
-          expressionMsg = (this.currentGender === 'male' ? 'Você está neutro 😶' : 'Está neutra 😶');
+        expressionMsg = (this.currentGender === 'male' ? 'Você está neutro 😶' : 'Está neutra 😶');
       } else if (this.currentEmotion === 'sad') {
-          expressionMsg = 'Você está triste 😞';
+        expressionMsg = 'Você está triste 😞';
       } else if (this.currentEmotion === 'surprised') {
-          expressionMsg = (this.currentGender === 'male' ? 'Você está surpreso 😯' : 'Está surpresa 😯');
+        expressionMsg = (this.currentGender === 'male' ? 'Você está surpreso 😯' : 'Está surpresa 😯');
       }
 
       if (mostProbEmotionValue <= 0.8 && !expressionMsg.includes('neutro')) {
-          if (expressionMsg.includes('está')) {
-              expressionMsg = expressionMsg.replace('está', 'está um pouco');
-          }
+        if (expressionMsg.includes('está')) {
+          expressionMsg = expressionMsg.replace('está', 'está um pouco');
+        }
       }
 
       if (mostProbEmotionValue >= 0.999) {
-          if (expressionMsg.includes('está') && !expressionMsg.includes('neutro')) {
-              expressionMsg = expressionMsg.replace('está', 'está muito');
-          }
+        if (expressionMsg.includes('está') && !expressionMsg.includes('neutro')) {
+          expressionMsg = expressionMsg.replace('está', 'está muito');
+        }
       }
 
       this.expressionMsg = expressionMsg;
@@ -162,7 +162,6 @@ export class FaceApiService {
         .withFaceExpressions();
 
       if (detection && detection.detection) {
-
         if (!this.firstDetectionMessageSaid && Date.now() - this.firstDetectionMessageTimestamp > 15000) {
           this.firstDetectionMessageSaid = true;
           this.firstDetectionMessageTimestamp = Date.now();
@@ -177,7 +176,6 @@ export class FaceApiService {
         };
 
         const x = detection.detection.box.x + detection.detection.box.width / 2;
-
         const sectionWidth = displaySize.width / 8;
 
         if (x < sectionWidth) this.currentEyesSide = '82';
@@ -187,7 +185,6 @@ export class FaceApiService {
         else if (x < sectionWidth * 6) this.currentEyesSide = '42';
         else if (x < sectionWidth * 7) this.currentEyesSide = '50';
         else this.currentEyesSide = '58';
-
       } else {
         this.firstDetectionMessageSaid = false;
       }
@@ -211,25 +208,26 @@ export class FaceApiService {
 
     this.landmarkIntervals.push(setInterval(async () => {
       const detection = await faceapi.detectSingleFace(videoElement, new faceapi.TinyFaceDetectorOptions())
+        .withFaceLandmarks()
         .withAgeAndGender();
 
-      /* const context = canvas.getContext('2d');
+      const context = canvas.getContext('2d');
 
       if (context) {
         context.clearRect(0, 0, canvas.width, canvas.height);
-      } */
+      }
 
       if (detection) {
         this.setAgeAndGender(detection);
 
-        /* if (displaySize.width === 0 || displaySize.height === 0) {
+        if (displaySize.width === 0 || displaySize.height === 0) {
           console.error('Dimensões do vídeo são inválidas:', displaySize);
           return;
         }
 
         const resizedDetections = faceapi.resizeResults(detection, displaySize);
 
-        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections); */
+        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
       } else {
         this.expressionMsg = 'Sem expressão definida 👻';
       }
@@ -277,7 +275,6 @@ export class FaceApiService {
 
       expressionValues.push('37');
     }
-
 
     const robot_api = localStorage.getItem('robot_api') || 'http://192.168.1.100:5000';
 
