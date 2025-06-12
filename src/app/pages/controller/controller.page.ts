@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-controller',
-  templateUrl: './controller.page.html',
-  styleUrls: ['./controller.page.scss'],
+    selector: 'app-controller',
+    templateUrl: './controller.page.html',
+    styleUrls: ['./controller.page.scss'],
+    standalone: false
 })
 export class ControllerPage implements OnInit {
   public fetchError: boolean = false;

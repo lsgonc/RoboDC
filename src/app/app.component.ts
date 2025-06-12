@@ -3,9 +3,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { FaceApiService } from './services/face-api.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit, AfterViewInit {
   videoElement!: HTMLVideoElement;

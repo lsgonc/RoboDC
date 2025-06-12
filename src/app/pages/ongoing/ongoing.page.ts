@@ -8,9 +8,10 @@ import { TtsService } from 'src/app/services/tts.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-ongoing',
-  templateUrl: './ongoing.page.html',
-  styleUrls: ['./ongoing.page.scss'],
+    selector: 'app-ongoing',
+    templateUrl: './ongoing.page.html',
+    styleUrls: ['./ongoing.page.scss'],
+    standalone: false
 })
 export class OngoingPage implements OnInit {
   public location: string = 'Auditório';

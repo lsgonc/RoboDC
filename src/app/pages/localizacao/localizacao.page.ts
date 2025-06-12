@@ -8,9 +8,10 @@ import { TtsService } from 'src/app/services/tts.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-localizacao',
-  templateUrl: './localizacao.page.html',
-  styleUrls: ['./localizacao.page.scss'],
+    selector: 'app-localizacao',
+    templateUrl: './localizacao.page.html',
+    styleUrls: ['./localizacao.page.scss'],
+    standalone: false
 })
 export class LocalizacaoPage implements OnInit {
   @ViewChild('locationModal') modal: IonModal | undefined;

@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import { FaceApiService } from 'src/app/services/face-api.service';
 
 @Component({
-  selector: 'app-expressions',
-  templateUrl: './expressions.page.html',
-  styleUrls: ['./expressions.page.scss'],
+    selector: 'app-expressions',
+    templateUrl: './expressions.page.html',
+    styleUrls: ['./expressions.page.scss'],
+    standalone: false
 })
 export class ExpressionsPage implements OnInit, OnDestroy {
   public loading: boolean = false;

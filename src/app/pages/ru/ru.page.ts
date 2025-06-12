@@ -9,9 +9,10 @@ import { formatDate } from '@angular/common';
 import { Platform } from '@ionic/angular';
 
 @Component({
-  selector: 'app-ru',
-  templateUrl: './ru.page.html',
-  styleUrls: ['./ru.page.scss'],
+    selector: 'app-ru',
+    templateUrl: './ru.page.html',
+    styleUrls: ['./ru.page.scss'],
+    standalone: false
 })
 export class RuPage implements OnInit {
   public loading: boolean = false;

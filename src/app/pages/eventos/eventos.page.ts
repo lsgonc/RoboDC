@@ -9,9 +9,10 @@ import {
 } from 'src/app/models/events.types';
 
 @Component({
-  selector: 'app-eventos',
-  templateUrl: './eventos.page.html',
-  styleUrls: ['./eventos.page.scss'],
+    selector: 'app-eventos',
+    templateUrl: './eventos.page.html',
+    styleUrls: ['./eventos.page.scss'],
+    standalone: false
 })
 export class EventosPage implements OnInit {
   public loading: boolean = false;
