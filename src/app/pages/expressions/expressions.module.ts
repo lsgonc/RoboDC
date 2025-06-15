@@ -11,6 +11,9 @@ import { ExpressionsPage } from './expressions.page';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {TextComponent} from 'robodc-ui';
+import {SpacingComponent } from 'robodc-ui';
+import { AlertModalComponent } from 'robodc-ui';
+import { ButtonComponent } from 'robodc-ui';
 
 @NgModule({
   imports: [
@@ -19,7 +22,10 @@ import {TextComponent} from 'robodc-ui';
     IonicModule,
     ExpressionsPageRoutingModule,
     TranslateModule,
-    TextComponent
+    TextComponent,
+    SpacingComponent,
+    AlertModalComponent,
+    ButtonComponent
   ],
   declarations: [ExpressionsPage]
 })

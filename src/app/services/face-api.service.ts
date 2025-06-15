@@ -3,19 +3,22 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, timeout } from 'rxjs';
 import { TtsService } from './tts.service';
+import { BehaviorSubject } from 'rxjs';
 
 declare var faceapi: any;
 
 export const DETECTION_INTERVAL = 200;
+const EXPRESSION_SAMPLES = 25;
 
 enum EmotionsColors {
-  angry = '#FF0000',
-  disgusted = '#228B22',
-  fearful = '#8A0DE5',
-  happy = '#F8E451',
-  neutral = '#808080',
-  sad = '#1E90FF',
-  surprised = '#FF7C2B'
+  PRIMARY = '#FF5722',
+  SECONDARY = '#2196F3',
+  NEUTRAL = '#9E9E9E',
+}
+
+interface ExpressionSample {
+  emotion: string;
+  value: number;
 }
 
 @Injectable({
@@ -23,12 +26,13 @@ enum EmotionsColors {
 })
 export class FaceApiService {
   modelLoadError = false;
+  isLoading = false;
 
   currentEyesSide?: string;
   currentEmotion = '';
   emotionPorcentage = '';
-  expressionColor = EmotionsColors.neutral;
-  expressionMsg = 'Sem expressão definida 👻';
+  expressionColor = EmotionsColors.NEUTRAL;
+  expressionMsg = '';
 
   currentAge = '';
   currentGender = '';
@@ -38,18 +42,23 @@ export class FaceApiService {
   lastSendedEyes?: string;
 
   landmarkIntervals: NodeJS.Timeout[] = [];
+  expressionSamples: ExpressionSample[] = [];
 
   firstDetectionMessageSaid = false;
   firstDetectionMessageTimestamp: number = Date.now() - 60000;
-
   lastChangeExpressionSended = Date.now() - 60000;
 
-  constructor(private translate: TranslateService, private http: HttpClient, private tts: TtsService) { }
+  private detectionInterval?: NodeJS.Timeout;
+  private emotionSubject = new BehaviorSubject<string>('');
+  emotion$ = this.emotionSubject.asObservable();
+
+
+  constructor(private translate: TranslateService, private http: HttpClient, private tts: TtsService) {}
 
   async loadModels() {
+    this.isLoading = true;
     try {
       const MODEL_URL = '/assets/models';
-
       console.log('Carregando modelos...');
 
       await Promise.all([
@@ -63,36 +72,37 @@ export class FaceApiService {
     } catch (error) {
       this.modelLoadError = true;
       console.error('Erro ao carregar modelos:', error);
+    } finally {
+      this.isLoading = false;
     }
   }
 
   setAgeAndGender(data: any) {
     this.currentGender = data?.gender;
-
     let msg = '';
     if (this.currentGender) {
       if (data.age <= 4) {
-        msg = (this.currentGender === 'male' ? 'um bebê' : 'uma bebê');
+        msg = this.currentGender === 'male' ? 'um bebê' : 'uma bebê';
       } else if (data.age > 4 && data.age < 12) {
-        msg = (this.currentGender === 'male' ? 'um menininho, criança' : 'uma menininha, criança');
+        msg = this.currentGender === 'male' ? 'um menininho, criança' : 'uma menininha, criança';
       } else if (data.age > 12 && data.age < 18) {
-        msg = (this.currentGender === 'male' ? 'um menino' : 'um menina');
+        msg = this.currentGender === 'male' ? 'um menino' : 'uma menina';
       } else if (data.age > 18 && data.age < 30) {
-        msg = (this.currentGender === 'male' ? 'um jovem adulto' : 'um jovem adulta');
+        msg = this.currentGender === 'male' ? 'um jovem adulto' : 'uma jovem adulta';
       } else if (data.age > 30 && data.age < 70) {
-        msg = (this.currentGender === 'male' ? 'um adulto' : 'um adulta');
+        msg = this.currentGender === 'male' ? 'um adulto' : 'uma adulta';
       } else if (data.age > 70) {
-        msg = (this.currentGender === 'male' ? 'um senhor de idade' : 'uma senhora de idade');
+        msg = this.currentGender === 'male' ? 'um senhor de idade' : 'uma senhora de idade';
       }
-
       msg = `E é ${msg}`;
     }
-
     this.ageAndGenderMsg = msg;
   }
 
   setExpression(detection: any) {
-    if (detection) {
+    if (detection && detection.expressions) {
+      this.isLoading = true;
+
       let mostProbEmotion = '';
       let mostProbEmotionValue = 0;
 
@@ -103,51 +113,81 @@ export class FaceApiService {
         }
       }
 
-      if (mostProbEmotionValue > 0.95) {
-        this.currentEmotion = mostProbEmotion;
-        this.expressionColor = EmotionsColors[mostProbEmotion as keyof typeof EmotionsColors];
-        this.emotionPorcentage = (mostProbEmotionValue * 100).toFixed(2) + '%';
-      }
+      this.expressionSamples.push({ emotion: mostProbEmotion, value: mostProbEmotionValue });
 
-      let expressionMsg = 'Sem expressão definida 👻';
+      if (this.expressionSamples.length >= EXPRESSION_SAMPLES) {
+        const { emotion, value } = this.calculateAverageExpression();
 
-      if (this.currentEmotion === 'angry') {
-        expressionMsg = (this.currentGender === 'male' ? 'Você está nervoso 😡' : 'Está nervosa 😡');
-      } else if (this.currentEmotion === 'disgusted') {
-        expressionMsg = 'Você está com nojo 🤮';
-      } else if (this.currentEmotion === 'fearful') {
-        expressionMsg = 'Você está com medo 😨';
-      } else if (this.currentEmotion === 'happy') {
-        expressionMsg = 'Você está feliz 😀';
-      } else if (this.currentEmotion === 'neutral') {
-        expressionMsg = (this.currentGender === 'male' ? 'Você está neutro 😶' : 'Está neutra 😶');
-      } else if (this.currentEmotion === 'sad') {
-        expressionMsg = 'Você está triste 😞';
-      } else if (this.currentEmotion === 'surprised') {
-        expressionMsg = (this.currentGender === 'male' ? 'Você está surpreso 😯' : 'Está surpresa 😯');
-      }
-
-      if (mostProbEmotionValue <= 0.8 && !expressionMsg.includes('neutro')) {
-        if (expressionMsg.includes('está')) {
-          expressionMsg = expressionMsg.replace('está', 'está um pouco');
+        if (value > 0.95) {
+          this.currentEmotion = emotion;
+          this.emotionPorcentage = (value * 100).toFixed(2) + '%';
+          this.expressionColor = EmotionsColors.PRIMARY;
+        } else {
+          this.currentEmotion = '';
+          this.emotionPorcentage = '';
+          this.expressionColor = EmotionsColors.NEUTRAL;
         }
-      }
 
-      if (mostProbEmotionValue >= 0.999) {
-        if (expressionMsg.includes('está') && !expressionMsg.includes('neutro')) {
-          expressionMsg = expressionMsg.replace('está', 'está muito');
-        }
-      }
+        this.expressionMsg = this.currentEmotion || 'neutral';
 
-      this.expressionMsg = expressionMsg;
+        this.emotionSubject.next(this.currentEmotion);
+
+        this.isLoading = false;
+        this.expressionSamples = [];
+      }
     } else {
       this.currentEmotion = '';
       this.emotionPorcentage = '';
+      this.expressionColor = EmotionsColors.NEUTRAL;
+      this.expressionMsg = 'neutral';
+      this.isLoading = false;
+      this.expressionSamples = [];
     }
 
     if (Date.now() - this.lastChangeExpressionSended > 300) {
       this.lastChangeExpressionSended = Date.now();
       this.changeRobotFace(this.currentEmotion);
+    }
+  }
+
+  private calculateAverageExpression(): { emotion: string; value: number } {
+    const emotionCounts: { [key: string]: { count: number; totalValue: number } } = {};
+
+    this.expressionSamples.forEach(sample => {
+      if (!emotionCounts[sample.emotion]) {
+        emotionCounts[sample.emotion] = { count: 0, totalValue: 0 };
+      }
+      emotionCounts[sample.emotion].count++;
+      emotionCounts[sample.emotion].totalValue += sample.value;
+    });
+
+    let mostFrequentEmotion = '';
+    let highestAvgValue = 0;
+
+    for (const [emotion, { count, totalValue }] of Object.entries(emotionCounts)) {
+      const avgValue = totalValue / count;
+      if (count > (emotionCounts[mostFrequentEmotion]?.count || 0) ||
+          (count === emotionCounts[mostFrequentEmotion]?.count && avgValue > highestAvgValue)) {
+        mostFrequentEmotion = emotion;
+        highestAvgValue = avgValue;
+      }
+    }
+
+    return { emotion: mostFrequentEmotion, value: highestAvgValue };
+  }
+
+  pauseDetection() {
+    if (this.detectionInterval) {
+      clearInterval(this.detectionInterval);
+      this.detectionInterval = undefined;
+      this.isLoading = false;
+      this.expressionSamples = [];
+    }
+  }
+
+  resumeDetection(videoElement: HTMLVideoElement, id?: string) {
+    if (!this.detectionInterval) {
+      this.onPlay(videoElement, id);
     }
   }
 
@@ -165,7 +205,6 @@ export class FaceApiService {
         if (!this.firstDetectionMessageSaid && Date.now() - this.firstDetectionMessageTimestamp > 15000) {
           this.firstDetectionMessageSaid = true;
           this.firstDetectionMessageTimestamp = Date.now();
-
           const randomNumber = Math.floor(Math.random() * 5) + 1;
           this.tts.speak(this.translate.instant(`detector.welcome${randomNumber}`));
         }
@@ -212,72 +251,53 @@ export class FaceApiService {
         .withAgeAndGender();
 
       const context = canvas.getContext('2d');
-
       if (context) {
         context.clearRect(0, 0, canvas.width, canvas.height);
       }
 
       if (detection) {
         this.setAgeAndGender(detection);
-
         if (displaySize.width === 0 || displaySize.height === 0) {
           console.error('Dimensões do vídeo são inválidas:', displaySize);
           return;
         }
 
         const resizedDetections = faceapi.resizeResults(detection, displaySize);
-
         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
       } else {
-        this.expressionMsg = 'Sem expressão definida 👻';
+        this.expressionMsg = 'neutral';
       }
     }, DETECTION_INTERVAL));
   }
 
   clearLandmarkIntervals() {
-    this.landmarkIntervals.forEach(element => {
-      clearInterval(element);
-    });
+    this.landmarkIntervals.forEach(element => clearInterval(element));
+    this.landmarkIntervals = [];
   }
 
   changeRobotFace(expression: string) {
     if (this.lastSendedExpression === expression) return;
 
     this.lastSendedExpression = expression;
-
-    let expressionValues = [];
+    let expressionValues: string[] = [];
 
     if (expression === 'angry') {
-      expressionValues.push('26');
-      expressionValues.push('21');
-    }
-    else if (expression === 'disgusted') {
-      expressionValues.push('26');
-      expressionValues.push('37');
-    }
-    else if (expression === 'fearful') {
-      expressionValues.push('34');
-      expressionValues.push('21');
-    }
-    else if (expression === 'happy' || expression === '') {
+      expressionValues.push('26', '21');
+    } else if (expression === 'disgusted') {
+      expressionValues.push('26', '37');
+    } else if (expression === 'fearful') {
+      expressionValues.push('34', '21');
+    } else if (expression === 'happy' || expression === '') {
       expressionValues.push('9');
-    }
-    else if (expression === 'sad') {
+    } else if (expression === 'sad') {
       expressionValues.push('17');
-    }
-    else if (expression === 'surprised') {
-      expressionValues.push('34');
-      expressionValues.push('45');
-    }
-    else {
-      if (this.currentEyesSide) expressionValues.push(this.currentEyesSide);
-      else expressionValues.push('10');
-
-      expressionValues.push('37');
+    } else if (expression === 'surprised') {
+      expressionValues.push('34', '45');
+    } else {
+      expressionValues.push(this.currentEyesSide || '10', '37');
     }
 
     const robot_api = localStorage.getItem('robot_api') || 'http://192.168.1.100:5000';
-
     lastValueFrom(
       this.http.post(`${robot_api}/led/changeExpression`, { expressionValues }).pipe(timeout(1000))
     ).catch(e => console.log('Erro ao enviar expressão para o robô'));

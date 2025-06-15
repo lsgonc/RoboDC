@@ -26,7 +26,8 @@
     "skipLibCheck": true,
     "paths": {
       "robodc-ui/*": ["node_modules/robodc-ui/*"]
-    }
+    },
+    "preserveSymlinks": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

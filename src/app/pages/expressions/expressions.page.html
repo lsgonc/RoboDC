@@ -9,7 +9,12 @@
     <h3>Algo não está funcionando corretamente.</h3>
   </div>
 
-  <div class="container" *ngIf="!error" [style.background-color]="getBackgroundColor()">
+  <div class="container" *ngIf="!error">
+    <robodc-spacing direction="column" align="center">
+      <robodc-text type="secondary">Coloque seu rosto na câmera!</robodc-text>
+      <robodc-text>Vamos ler suas expressões faciais e analisá-las</robodc-text>
+    </robodc-spacing>
+
     <div class="content">
       <div class="video-container">
         <canvas id="canvas"></canvas>
@@ -17,9 +22,41 @@
       </div>
 
       <div class="text-container">
-        {{ faceApi.expressionMsg }} <br />
-        {{ faceApi.ageAndGenderMsg }}
+        {{ analyzing ? "Analisando suas emoções... Aguarde!" : "" }}
+      </div>
+
+
+    <div class="button-container">
+
+     <robodc-spacing direction="column" gap="md">
+      <robodc-button
+        label="Iniciar Análise"
+        variant="primary"
+        size="lg"
+        [fullWidth]="true"
+        (onClick)="startDetection()"
+        [isDisabled]="analyzing"
+      />
+      <robodc-button
+        label="Parar"
+        variant="danger"
+        size="lg"
+        [fullWidth]="true"
+        (onClick)="stopDetection()"
+        [isDisabled]="!analyzing"
+      />
+    </robodc-spacing>
       </div>
     </div>
   </div>
+
+  <robodc-alert-modal
+    [title]="modalTitle + ' ' + currentEmotion"
+    [description]="modalDescription"
+    [buttons]="modalButtons"
+    [isOpen]="isModalOpen"
+    (close)="onModalClose()"
+    (buttonClick)="onModalButtonClick($event)"
+  ></robodc-alert-modal>
 </ion-content>
+
