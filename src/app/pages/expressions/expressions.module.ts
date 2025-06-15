@@ -10,6 +10,8 @@ import { ExpressionsPage } from './expressions.page';
 
 import { TranslateModule } from '@ngx-translate/core';
 
+import {TextComponent} from 'robodc-ui';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
     IonicModule,
     ExpressionsPageRoutingModule,
     TranslateModule,
+    TextComponent
   ],
   declarations: [ExpressionsPage]
 })
