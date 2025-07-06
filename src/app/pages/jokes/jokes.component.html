@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="center-container">
+    <robodc-text>Aqui vai uma piada para alegrar seu dia!</robodc-text>
+
+    <div *ngIf="!isLoading" class="loading-container">
+      <robodc-text>{{joke?.setup}}</robodc-text>
+    </div>
+
+      <div *ngIf="isLoading" class="spinner"> <robodc-text>Carregando piada...</robodc-text>
+      </div>
+
+    <div class="buttons-container" *ngIf="!isLoading">
+      <robodc-masked-text [text]="joke!.punchline"></robodc-masked-text>
+      <robodc-button class="another-joke-button" (onClick)="fetchJoke()" label="Conte outra!" size="lg" variant="info"
+        [fullWidth]="true" />
+    </div>
+    <div class="buttons-container action-buttons">
+      <robodc-button (onClick)="goToTips()" label="Ver técnicas para se sentir melhor" size="lg" variant="success"
+        [fullWidth]="true" />
+      <robodc-button label="Agora não" size="lg" variant="danger" [fullWidth]="true" />
+    </div>
+  </div>
+</div>

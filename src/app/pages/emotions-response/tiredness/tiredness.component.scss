@@ -1,4 +1,8 @@
+
 .container {
+  background-image: url('/assets/robot.svg'); /* Caminho para o SVG */
+  background-position: left; /* Centraliza o SVG */
+  background-repeat: no-repeat; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,11 +11,22 @@
   gap: 2rem;
 }
 
+.center-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 50%;
+  flex: 1;
+  min-height: auto;
+  margin: auto;
+  flex: 0 1 auto; /* O buttons-container não expande para preencher o espaço */
+}
+
 .buttons-container {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  width: 50%;
+  width: 100%;
   flex: 1;
   min-height: auto;
   flex: 0 1 auto; /* O buttons-container não expande para preencher o espaço */

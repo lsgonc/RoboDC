@@ -30,6 +30,7 @@ export class ExpressionsPage implements OnInit, OnDestroy {
 
   // Subscriptions
   private subscriptions: Subscription[] = [];
+  stopped: boolean = false;
 
   constructor(
     private router: Router,
@@ -59,7 +60,8 @@ export class ExpressionsPage implements OnInit, OnDestroy {
       this.emotionService.onFinish.subscribe(finalEmotion => {
         this.analyzing = false;
         this.currentEmotion = finalEmotion;
-        this.openEmotionModal(finalEmotion);
+        if(!this.stopped)
+          this.openEmotionModal(finalEmotion);
       })
     );
   }
@@ -83,10 +85,12 @@ export class ExpressionsPage implements OnInit, OnDestroy {
   }
 
   startDetection() {
+    this.stopped = false
     this.emotionService.startAnalysis(this.videoElement, 7000); // analisa por 7 segundos
   }
 
   stopDetection() {
+    this.stopped = true
     this.emotionService.stopAnalysis();
   }
 
@@ -105,7 +109,7 @@ export class ExpressionsPage implements OnInit, OnDestroy {
   }
 
   onModalButtonClick(index: number) {
-    this.closeModal();
+    this.router.navigateByUrl("/not-well")
     // Aqui você pode navegar ou executar qualquer ação após clicar no botão do modal
   }
 

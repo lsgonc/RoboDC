@@ -3,25 +3,25 @@ import { Router } from '@angular/router';
 import { ButtonComponent } from 'robodc-ui';
 import { TextComponent } from 'robodc-ui';
 
+
 @Component({
-  selector: 'app-not-well',
-  templateUrl: './not-well.component.html',
-  standalone: true,
+  selector: 'app-feel-better',
+  templateUrl: './feel-better.component.html',
+  styleUrls: ['./feel-better.component.scss'],
   imports: [
     ButtonComponent,
     TextComponent
-  ],
-  styleUrls: ['./not-well.component.scss'],
+  ]
 })
-export class NotWellComponent  implements OnInit {
+export class FeelBetterComponent  implements OnInit {
 
   constructor(private router: Router) { }
 
   ngOnInit() {}
 
-  goToTiredness() {
-    console.log("alo")
-    this.router.navigateByUrl("/emotions-response/tiredness")
+  goToStudyTips() {
+    this.router.navigateByUrl("/feel-better/study-tips")
   }
+
 
 }

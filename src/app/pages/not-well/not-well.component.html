@@ -1,3 +1,15 @@
-<p>
-  not-well works!
-</p>
+<div class="container">
+  <robodc-text>Percebi que você não está se sentido bem. Qual problema te atinge?</robodc-text>
+  <div class="buttons-container">
+    <robodc-button (onClick)="goToTiredness()" label="Cansaço" size="lg" variant="info" [fullWidth]="true" />
+    <robodc-button label="Insônia" size="lg" variant="info" [fullWidth]="true" />
+  </div>
+  <div class="buttons-container">
+    <robodc-button label="Ansiedade" size="lg" variant="info" [fullWidth]="true" />
+    <robodc-button label="Estresse" size="lg" variant="info" [fullWidth]="true" />
+  </div>
+  <div class="buttons-container">
+    <robodc-button label="Insegurança" size="lg" variant="info" [fullWidth]="true" />
+    <robodc-button label="Estou melhor!" size="lg" variant="success" [fullWidth]="true" />
+  </div>
+</div>

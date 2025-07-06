@@ -1,0 +1,20 @@
+import { Component, OnInit } from '@angular/core';
+import { ButtonComponent } from 'robodc-ui';
+import { TextComponent } from 'robodc-ui';
+
+@Component({
+  selector: 'app-studies',
+  templateUrl: './studies.component.html',
+  imports: [
+    ButtonComponent,
+    TextComponent
+  ],
+  styleUrls: ['./studies.component.scss'],
+})
+export class StudiesComponent  implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {}
+
+}

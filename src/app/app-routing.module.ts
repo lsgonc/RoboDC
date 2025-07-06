@@ -55,6 +55,34 @@ const routes: Routes = [
     path: 'controller',
     loadChildren: () => import('./pages/controller/controller.module').then( m => m.ControllerPageModule)
   },
+  {
+    path: 'not-well',
+    loadComponent: () => import('./pages/not-well/not-well.component').then( c => c.NotWellComponent)
+  },
+  {
+    path: 'emotions-response/tiredness',
+    loadComponent: () => import('./pages/emotions-response/tiredness/tiredness.component').then( c => c.TirednessComponent)
+  },
+  {
+    path: 'emotions-response/tiredness/studies',
+    loadComponent: () => import('./pages/emotions-response/tiredness/studies/studies.component').then( c => c.StudiesComponent)
+  },
+  {
+    path: 'jokes',
+    loadComponent: () => import('./pages/jokes/jokes.component').then( c => c.JokesComponent)
+  },
+  {
+    path: 'feel-better',
+    loadComponent: () => import('./pages/feel-better/feel-better.component').then( c => c.FeelBetterComponent)
+  },
+  {
+    path: 'feel-better/study-tips',
+    loadComponent: () => import('./pages/feel-better/study-tips/study-tips.component').then( c => c.StudyTipsComponent)
+  },
+  {
+    path: 'feel-better/study-tips/pomodoro',
+    loadComponent: () => import('./pages/feel-better/study-tips/pomodoro/pomodoro.component').then( c => c.PomodoroComponent)
+  },
 ];
 
 @NgModule({
