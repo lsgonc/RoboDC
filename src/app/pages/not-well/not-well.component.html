@@ -1,8 +1,8 @@
 <div class="container">
   <robodc-text>Percebi que você não está se sentido bem. Qual problema te atinge?</robodc-text>
   <div class="buttons-container">
-    <robodc-button (onClick)="goToTiredness()" label="Cansaço" size="lg" variant="info" [fullWidth]="true" />
-    <robodc-button label="Insônia" size="lg" variant="info" [fullWidth]="true" />
+    <robodc-button (onClick)="navigateTo('/emotions-response/tiredness')" label="Cansaço" size="lg" variant="info" [fullWidth]="true" />
+    <robodc-button (onClick)="navigateTo('/emotions-response/insomnia')" label="Insônia" size="lg" variant="info" [fullWidth]="true" />
   </div>
   <div class="buttons-container">
     <robodc-button label="Ansiedade" size="lg" variant="info" [fullWidth]="true" />

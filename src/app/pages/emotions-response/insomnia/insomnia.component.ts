@@ -4,23 +4,24 @@ import { ButtonComponent } from 'robodc-ui';
 import { TextComponent } from 'robodc-ui';
 
 @Component({
-  selector: 'app-not-well',
-  templateUrl: './not-well.component.html',
-  standalone: true,
+  selector: 'app-tiredness',
+  templateUrl: './insomnia.component.html',
   imports: [
     ButtonComponent,
     TextComponent
   ],
-  styleUrls: ['./not-well.component.scss'],
+  styleUrls: ['./insomnia.component.scss'],
 })
-export class NotWellComponent  implements OnInit {
+export class InsomniaComponent  implements OnInit {
+
 
   constructor(private router: Router) { }
 
   ngOnInit() {}
 
-  navigateTo(url: string) {
-    this.router.navigateByUrl(url)
+  goToStudy() {
+    this.router.navigateByUrl("/emotions-response/tiredness/studies");
   }
+  
 
 }

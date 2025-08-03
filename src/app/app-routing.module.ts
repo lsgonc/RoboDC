@@ -64,6 +64,10 @@ const routes: Routes = [
     loadComponent: () => import('./pages/emotions-response/tiredness/tiredness.component').then( c => c.TirednessComponent)
   },
   {
+    path: 'emotions-response/insomnia',
+    loadComponent: () => import('./pages/emotions-response/insomnia/insomnia.component').then( c => c.InsomniaComponent)
+  },
+  {
     path: 'emotions-response/tiredness/studies',
     loadComponent: () => import('./pages/emotions-response/tiredness/studies/studies.component').then( c => c.StudiesComponent)
   },
