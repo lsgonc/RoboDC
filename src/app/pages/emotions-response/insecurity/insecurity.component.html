@@ -4,12 +4,12 @@
     <robodc-text>Você consegue me dizer a causa do problema?</robodc-text>
 
     <div class="buttons-container">
-      <robodc-button (onClick)="goToStudy()" label="Estudo" size="lg" variant="info" [fullWidth]="true" />
-      <robodc-button label="Trabalho" size="lg" variant="info" [fullWidth]="true" />
+      <robodc-button (onClick)="navigateTo('/emotions-response/insecurity/studies')" label="Estudo" size="lg" variant="info" [fullWidth]="true" />
+      <robodc-button (onClick)="navigateTo('/emotions-response/insecurity/work')" label="Trabalho" size="lg" variant="info" [fullWidth]="true" />
     </div>
     <div class="buttons-container">
-      <robodc-button label="Aparência" size="lg" variant="info" [fullWidth]="true" />
-      <robodc-button label="Estou melhor!" size="lg" variant="success" [fullWidth]="true" />
+      <robodc-button (onClick)="navigateTo('/emotions-response/insecurity/appearance')" label="Aparência" size="lg" variant="info" [fullWidth]="true" />
+      <robodc-button (onClick)="navigateTo('/')" label="Estou melhor!" size="lg" variant="success" [fullWidth]="true" />
     </div>
   </div>
 </div>

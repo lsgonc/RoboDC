@@ -4,23 +4,23 @@ import { ButtonComponent } from 'robodc-ui';
 import { TextComponent } from 'robodc-ui';
 
 @Component({
-  selector: 'app-tiredness',
-  templateUrl: './insecurity.component.html',
+  selector: 'app-people',
+  templateUrl: './people.component.html',
   imports: [
     ButtonComponent,
     TextComponent
   ],
-  styleUrls: ['./insecurity.component.scss'],
+  styleUrls: ['./people.component.scss'],
 })
-export class InsecurityComponent  implements OnInit {
+export class StressPeopleComponent  implements OnInit {
 
 
   constructor(private router: Router) { }
 
   ngOnInit() {}
 
-  navigateTo(url: string) {
-    this.router.navigateByUrl(url);
+  goToJokes() {
+    this.router.navigateByUrl("/jokes")
   }
   
 

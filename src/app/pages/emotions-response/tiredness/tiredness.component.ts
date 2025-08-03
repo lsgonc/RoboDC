@@ -19,8 +19,8 @@ export class TirednessComponent  implements OnInit {
 
   ngOnInit() {}
 
-  goToStudy() {
-    this.router.navigateByUrl("/emotions-response/tiredness/studies");
+  navigateTo(url: string) {
+    this.router.navigateByUrl(url);
   }
   
 

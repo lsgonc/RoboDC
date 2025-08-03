@@ -84,6 +84,70 @@ const routes: Routes = [
     loadComponent: () => import('./pages/emotions-response/tiredness/studies/studies.component').then( c => c.StudiesComponent)
   },
   {
+    path: 'emotions-response/insomnia/studies',
+    loadComponent: () => import('./pages/emotions-response/insomnia/studies/studies.component').then( c => c.InmsoniaStudiesComponent)
+  },
+  {
+    path: 'emotions-response/anxiety/studies',
+    loadComponent: () => import('./pages/emotions-response/anxiety/studies/studies.component').then( c => c.AnxietyStudiesComponent)
+  },
+  {
+    path: 'emotions-response/stress/studies',
+    loadComponent: () => import('./pages/emotions-response/stress/studies/studies.component').then( c => c.StressStudiesComponent)
+  },
+  {
+    path: 'emotions-response/insecurity/studies',
+    loadComponent: () => import('./pages/emotions-response/insecurity/studies/studies.component').then( c => c.InsecurityStudiesComponent)
+  },
+
+
+
+  {
+    path: 'emotions-response/tiredness/work',
+    loadComponent: () => import('./pages/emotions-response/tiredness/work/work.component').then( c => c.TirednessWorkComponent)
+  },
+  {
+    path: 'emotions-response/insomnia/work',
+    loadComponent: () => import('./pages/emotions-response/insomnia/work/work.component').then( c => c.InsomniaWorkComponent)
+  },
+  {
+    path: 'emotions-response/anxiety/work',
+    loadComponent: () => import('./pages/emotions-response/anxiety/work/work.component').then( c => c.AnxietyWorkComponent)
+  },
+  {
+    path: 'emotions-response/stress/work',
+    loadComponent: () => import('./pages/emotions-response/stress/work/work.component').then( c => c.StressWorkComponent)
+  },
+  {
+    path: 'emotions-response/insecurity/work',
+    loadComponent: () => import('./pages/emotions-response/insecurity/work/work.component').then( c => c.InsecurityWorkComponent)
+  },
+
+ 
+   {
+    path: 'emotions-response/tiredness/routine',
+    loadComponent: () => import('./pages/emotions-response/tiredness/routine/routine.component').then( c => c.TirednessRoutineComponent)
+  },
+  {
+    path: 'emotions-response/insomnia/health',
+    loadComponent: () => import('./pages/emotions-response/insomnia/health/health.component').then( c => c.InsomniaHealthComponent)
+  },
+  {
+    path: 'emotions-response/anxiety/fear',
+    loadComponent: () => import('./pages/emotions-response/anxiety/fear/fear.component').then( c => c.AnxietyFearComponent)
+  },
+  {
+    path: 'emotions-response/stress/people',
+    loadComponent: () => import('./pages/emotions-response/stress/people/people.component').then( c => c.StressPeopleComponent)
+  },
+  {
+    path: 'emotions-response/insecurity/appearance',
+    loadComponent: () => import('./pages/emotions-response/insecurity/appearance/appearance.component').then( c => c.InsecurityAppearanceComponent)
+  },
+
+
+
+  {
     path: 'jokes',
     loadComponent: () => import('./pages/jokes/jokes.component').then( c => c.JokesComponent)
   },
