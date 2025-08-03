@@ -6,10 +6,10 @@
   </div>
   <div class="buttons-container">
     <robodc-button (onClick)="navigateTo('/emotions-response/anxiety')" label="Ansiedade" size="lg" variant="info" [fullWidth]="true" />
-    <robodc-button label="Estresse" size="lg" variant="info" [fullWidth]="true" />
+    <robodc-button (onClick)="navigateTo('/emotions-response/stress')" label="Estresse" size="lg" variant="info" [fullWidth]="true" />
   </div>
   <div class="buttons-container">
-    <robodc-button label="Insegurança" size="lg" variant="info" [fullWidth]="true" />
-    <robodc-button label="Estou melhor!" size="lg" variant="success" [fullWidth]="true" />
+    <robodc-button (onClick)="navigateTo('/emotions-response/insecurity')" label="Insegurança" size="lg" variant="info" [fullWidth]="true" />
+    <robodc-button (onClick)="navigateTo('/')" label="Estou melhor!" size="lg" variant="success" [fullWidth]="true" />
   </div>
 </div>

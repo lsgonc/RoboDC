@@ -72,6 +72,14 @@ const routes: Routes = [
     loadComponent: () => import('./pages/emotions-response/anxiety/anxiety.component').then( c => c.AnxietyComponent)
   },
   {
+    path: 'emotions-response/stress',
+    loadComponent: () => import('./pages/emotions-response/stress/stress.component').then( c => c.StressComponent)
+  },
+  {
+    path: 'emotions-response/insecurity',
+    loadComponent: () => import('./pages/emotions-response/insecurity/insecurity.component').then( c => c.InsecurityComponent)
+  },
+  {
     path: 'emotions-response/tiredness/studies',
     loadComponent: () => import('./pages/emotions-response/tiredness/studies/studies.component').then( c => c.StudiesComponent)
   },
